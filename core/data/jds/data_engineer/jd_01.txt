@@ -1,0 +1,21 @@
+Data Engineer — Ngân hàng số Nova
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm Data Engineer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- SQL
+- Python
+- ETL
+- Data Warehouse
+- Data Modeling
+- dbt
+
+Ưu tiên (preferred):
+- Apache Kafka
+- Apache Spark
+- Apache Airflow
+
+Là lợi thế (nice to have):
+- Snowflake

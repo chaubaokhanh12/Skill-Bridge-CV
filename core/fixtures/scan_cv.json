@@ -1,0 +1,12 @@
+{
+  "cv_skills": [
+    { "skill_id": "sk_excel", "name": "Excel", "proficiency_guess": "proficient", "evidence": "Thành thạo Excel nâng cao: pivot table, hàm phức tạp" },
+    { "skill_id": "sk_python", "name": "Python", "proficiency_guess": "basic", "evidence": "Sử dụng Python và thư viện Pandas để làm sạch dữ liệu" },
+    { "skill_id": "sk_pandas", "name": "Pandas", "proficiency_guess": "basic", "evidence": "dùng Pandas xử lý hơn 50.000 dòng dữ liệu khảo sát" },
+    { "skill_id": "sk_numpy", "name": "NumPy", "proficiency_guess": "unknown", "evidence": "dùng Python, Pandas và NumPy để phân tích giỏ hàng" },
+    { "skill_id": "sk_statistics", "name": "Statistics", "proficiency_guess": "basic", "evidence": "Áp dụng thống kê mô tả và kiểm định giả thuyết" },
+    { "skill_id": "sk_data_cleaning", "name": "Data Cleaning", "proficiency_guess": "basic", "evidence": "làm sạch dữ liệu (data cleaning) từ khảo sát" },
+    { "skill_id": "sk_data_viz", "name": "Data Visualization", "proficiency_guess": "basic", "evidence": "Trực quan hóa dữ liệu bằng matplotlib và trình bày insight" },
+    { "skill_id": "sk_communication", "name": "Communication", "proficiency_guess": "proficient", "evidence": "Kỹ năng giao tiếp và thuyết trình kết quả cho ban lãnh đạo" }
+  ]
+}

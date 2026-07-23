@@ -1,0 +1,21 @@
+Frontend Developer — Công ty Fintech PayZen
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm Frontend Developer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- JavaScript
+- HTML/CSS
+- React
+- Responsive Design
+- Tailwind CSS
+
+Ưu tiên (preferred):
+- Git
+- Redux
+- TypeScript
+
+Là lợi thế (nice to have):
+- Vue.js
+- REST API

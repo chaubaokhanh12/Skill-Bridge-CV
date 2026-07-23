@@ -1,0 +1,20 @@
+QA Engineer — Tập đoàn Viễn thông Sao Việt
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm QA Engineer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Manual Testing
+- Test Automation
+- Test Case Design
+- Jira
+
+Ưu tiên (preferred):
+- API Testing
+- Unit Testing
+- Git
+- SQL
+
+Là lợi thế (nice to have):
+- REST API

@@ -1,0 +1,20 @@
+Full-stack Developer — Tập đoàn Viễn thông Sao Việt
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm Full-stack Developer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- JavaScript
+- React
+- Node.js
+- TypeScript
+- SQL
+- REST API
+
+Ưu tiên (preferred):
+- HTML/CSS
+- Git
+
+Là lợi thế (nice to have):
+- Authentication

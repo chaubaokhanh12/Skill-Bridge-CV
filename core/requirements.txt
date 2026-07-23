@@ -1,0 +1,9 @@
+# SkillBridge Core — Python deps (Mục 2 của spec)
+fastapi
+uvicorn[standard]
+python-multipart
+anthropic
+sentence-transformers
+numpy
+pdfplumber
+python-docx

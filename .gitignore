@@ -1,0 +1,34 @@
+# ===== Secrets (TUYỆT ĐỐI không commit) =====
+.env
+.env.*
+!.env.example
+*.key
+secrets.*
+
+# ===== Dữ liệu thô / lớn (licensing) =====
+DataAnalyst.csv
+*.csv
+core/data/jds/_backup/
+
+# ===== Cache / model =====
+core/.cache/
+**/.cache/
+.hf/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# ===== Java / Maven =====
+app/target/
+!app/.mvn/wrapper/maven-wrapper.jar
+
+# ===== OS / IDE / công cụ local =====
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.claude/

@@ -1,0 +1,21 @@
+Data Scientist — Công ty Công nghệ FTX
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Vị trí Data Scientist sẽ tham gia trực tiếp vào vòng đời phát triển sản phẩm, từ thiết kế tới vận hành.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Python
+- Statistics
+- Machine Learning
+- Pandas
+- SQL
+- Deep Learning
+
+Ưu tiên (preferred):
+- Data Visualization
+- NumPy
+
+Là lợi thế (nice to have):
+- MLOps
+- Feature Engineering

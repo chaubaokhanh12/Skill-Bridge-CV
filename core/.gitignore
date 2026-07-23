@@ -1,0 +1,25 @@
+# ⚠️ TUYỆT ĐỐI không commit secret / API key
+.env
+.env.*
+!.env.example
+*.key
+secrets.*
+
+# Cache LLM (chứa nội dung CV/JD + kết quả — không nên public)
+.cache/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Model embedding tải về
+.hf/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

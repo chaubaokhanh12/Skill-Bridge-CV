@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lộ trình học — SkillBridge</title>
+  <script th:inline="none">try{var t=localStorage.getItem('sb-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="logo">S</div>
+    <div>
+      <h1>Lộ trình học của bạn</h1>
+      <p class="tag"><span th:text="${roadmap.weeks().size()}">3</span> tuần · <span th:text="${hours}">5</span> giờ mỗi tuần</p>
+    </div>
+    <div class="themes">
+      <button class="theme-toggle" type="button" id="themeToggle">Chế độ tối</button>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li class="done"><span class="s-n">1</span> Nhập hồ sơ</li>
+    <li class="done"><span class="s-n">2</span> Xác nhận kỹ năng</li>
+    <li class="done"><span class="s-n">3</span> Kết quả</li>
+    <li class="active"><span class="s-n">4</span> Lộ trình &amp; CV</li>
+  </ol>
+
+  <a class="back" href="/">← Quay lại kết quả phân tích</a>
+
+  <!-- Tong quan lo trinh -->
+  <div class="rd-shell" th:if="${roadmap.meta() != null}">
+    <div class="readiness">
+      <p class="rd-label">Lộ trình học cá nhân hóa</p>
+      <div class="rd-band">
+        <span th:text="${roadmap.meta().totalWeeks()}">4</span> tuần ·
+        <span th:text="${roadmap.meta().totalHours()}">20</span> giờ
+      </div>
+      <p class="rd-meta" th:text="${roadmap.meta().summary()}">Tóm tắt lộ trình.</p>
+    </div>
+  </div>
+
+  <!-- Cac tuan -->
+  <div class="card week" th:each="w : ${roadmap.weeks()}">
+    <div class="week-h">
+      <span class="week-num" th:text="'TUẦN ' + ${w.week()}">TUẦN 1</span>
+      <span class="week-skill" th:text="${w.skill()}">SQL</span>
+      <span class="week-meta">
+        <span class="tagchip" th:if="${w.phase()}" th:text="${w.phase()}">Nền tảng</span>
+        <span class="tagchip alt" th:if="${w.estimatedHours()}" th:text="'~' + ${w.estimatedHours()} + ' giờ'">~5 giờ</span>
+      </span>
+    </div>
+
+    <p class="week-focus" th:if="${w.focus()}" th:text="${w.focus()}">Trọng tâm tuần.</p>
+
+    <!-- Vi sao hoc (noi voi nhu cau JD) -->
+    <div class="why" th:if="${w.why()}">
+      <span class="why-k">Vì sao</span>
+      <span th:text="${w.why()}">Xuất hiện ở 22/25 JD...</span>
+    </div>
+
+    <!-- Muc tieu hoc -->
+    <div class="block" th:if="${w.objectives() != null and !w.objectives().isEmpty()}">
+      <div class="block-h">Mục tiêu tuần này</div>
+      <ul class="ck">
+        <li th:each="o : ${w.objectives()}" th:text="${o}">Nắm cú pháp cốt lõi.</li>
+      </ul>
+    </div>
+
+    <!-- Tai lieu -->
+    <div class="block" th:if="${w.resources() != null and !w.resources().isEmpty()}">
+      <div class="block-h">Tài liệu (tự học theo tiến độ)</div>
+      <div class="res">
+        <a th:each="r : ${w.resources()}" th:href="${r.url()}" target="_blank" rel="noopener">
+          <span th:text="${r.title()}">SQLBolt</span>
+          <span class="h" th:if="${r.hours()}" th:text="${r.hours()} + ' giờ'">8 giờ</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bai luyen tap -->
+    <div class="block" th:if="${w.practice() != null and !w.practice().isEmpty()}">
+      <div class="block-h">Luyện tập</div>
+      <ul class="dot">
+        <li th:each="p : ${w.practice()}" th:text="${p}">Gõ tay lại ví dụ.</li>
+      </ul>
+    </div>
+
+    <!-- Checkpoint -->
+    <div class="checkpoint" th:if="${w.checkpoint()}">
+      <span class="ck-icon">✓</span>
+      <span th:text="${w.checkpoint()}">Tự kiểm: ...</span>
+    </div>
+
+    <!-- Mini-project (tuan cuoi cua moi skill) -->
+    <div class="proj" th:if="${w.miniProject() != null}">
+      <div class="proj-top">
+        <span class="proj-tag">Mini-project</span>
+        <span class="proj-diff" th:if="${w.miniProject().difficulty()}" th:text="${w.miniProject().difficulty()}">Cơ bản</span>
+      </div>
+      <div class="pt" th:text="${w.miniProject().title()}">Phân tích doanh thu bằng SQL</div>
+      <div class="pg" th:text="${w.miniProject().goal()}">Chứng minh khả năng viết truy vấn tổng hợp</div>
+
+      <div class="proj-grid">
+        <div th:if="${w.miniProject().doneCriteria() != null and !w.miniProject().doneCriteria().isEmpty()}">
+          <div class="mini-h">Tiêu chí hoàn thành</div>
+          <ul class="ck">
+            <li th:each="c : ${w.miniProject().doneCriteria()}" th:text="${c}">Viết 5 truy vấn JOIN</li>
+          </ul>
+        </div>
+        <div th:if="${w.miniProject().deliverables() != null and !w.miniProject().deliverables().isEmpty()}">
+          <div class="mini-h">Sản phẩm nộp</div>
+          <ul class="dot">
+            <li th:each="d : ${w.miniProject().deliverables()}" th:text="${d}">Notebook có chú thích</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mini-line" th:if="${w.miniProject().dataset()}">
+        <b>Dữ liệu gợi ý:</b> <span th:text="${w.miniProject().dataset()}">Kaggle...</span>
+      </div>
+      <div class="mini-line" th:if="${w.miniProject().stretch()}">
+        <b>Thử thách thêm:</b> <span th:text="${w.miniProject().stretch()}">Tự động hóa...</span>
+      </div>
+      <div class="cv" th:if="${w.miniProject().cvBullet()}">
+        <b>Dòng cho CV:</b> <span th:text="${w.miniProject().cvBullet()}">Phân tích dữ liệu bán hàng...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Capstone -->
+  <div class="card capstone" th:if="${roadmap.capstone() != null}">
+    <div class="cap-tag">Dự án tổng hợp cuối lộ trình</div>
+    <div class="cap-title" th:text="${roadmap.capstone().title()}">Mini-portfolio phân tích dữ liệu</div>
+    <p class="cap-goal" th:text="${roadmap.capstone().goal()}">Kết hợp mọi kỹ năng...</p>
+    <div class="cap-skills" th:if="${roadmap.capstone().skillsUsed() != null}">
+      <span class="tagchip" th:each="s : ${roadmap.capstone().skillsUsed()}" th:text="${s}">SQL</span>
+    </div>
+    <div class="mini-h" style="margin-top:16px">Tiêu chí hoàn thành</div>
+    <ul class="ck" th:if="${roadmap.capstone().doneCriteria() != null}">
+      <li th:each="c : ${roadmap.capstone().doneCriteria()}" th:text="${c}">Thu thập & làm sạch dữ liệu</li>
+    </ul>
+    <div class="cv" th:if="${roadmap.capstone().cvBullet()}">
+      <b>Dòng cho CV:</b> <span th:text="${roadmap.capstone().cvBullet()}">Dự án phân tích đầu-cuối...</span>
+    </div>
+  </div>
+
+  <!-- Meo portfolio -->
+  <div class="card" th:if="${roadmap.portfolioTips() != null and !roadmap.portfolioTips().isEmpty()}">
+    <h2>Mẹo biến lộ trình thành portfolio</h2>
+    <ul class="dot" style="margin-top:6px">
+      <li th:each="t : ${roadmap.portfolioTips()}" th:text="${t}">Đẩy dự án lên GitHub...</li>
+    </ul>
+  </div>
+
+  <div class="toolbar">
+    <a class="btn btn-ghost" href="/">Quay lại phân tích</a>
+  </div>
+
+  <p class="footnote">
+    Lộ trình xếp theo thứ tự học hợp lý (kỹ năng nền tảng trước). Tài liệu là nguồn học có thật,
+    hãy điều chỉnh theo tốc độ của bạn.
+  </p>
+</div>
+<script th:inline="none">
+  (function () {
+    var KEY = 'sb-theme';
+    function apply(mode) {
+      if (mode === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+      var b = document.getElementById('themeToggle');
+      if (b) { b.textContent = (mode === 'dark') ? 'Chế độ sáng' : 'Chế độ tối'; }
+    }
+    var saved; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'dark' ? 'dark' : 'light');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+      apply(next);
+    });
+  })();
+</script>
+</body>
+</html>

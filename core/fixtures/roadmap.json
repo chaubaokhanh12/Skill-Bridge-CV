@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "total_weeks": 4,
+    "hours_per_week": 5,
+    "total_hours": 20,
+    "skill_count": 3,
+    "summary": "Lộ trình 4 tuần (~20 giờ, 5 giờ/tuần) qua 3 kỹ năng còn thiếu cho vị trí Data Analyst, kết thúc bằng một dự án tổng hợp để đưa vào CV/portfolio."
+  },
+  "weeks": [
+    {
+      "week": 1,
+      "skill": "SQL",
+      "skill_id": "sk_sql",
+      "phase": "Nền tảng",
+      "level": "Cơ bản",
+      "focus": "Học lý thuyết cốt lõi rồi thực hành ngay bằng mini-project.",
+      "why": "Xuất hiện trong 22/25 JD của vị trí này, bắt buộc ở 12 nơi — đây là khoảng trống đáng ưu tiên lấp.",
+      "objectives": [
+        "Nắm vững khái niệm cốt lõi và cú pháp/nguyên tắc của SQL.",
+        "Tự tay áp dụng SQL vào một tập dữ liệu thật từ đầu đến cuối.",
+        "Giải thích được kết quả SQL cho người không chuyên."
+      ],
+      "estimated_hours": 5,
+      "resources": [
+        {
+          "title": "Mode: SQL Tutorial",
+          "url": "https://mode.com/sql-tutorial/",
+          "hours": 8
+        },
+        {
+          "title": "SQLBolt — Interactive SQL Lessons",
+          "url": "https://sqlbolt.com",
+          "hours": 6
+        },
+        {
+          "title": "Khan Academy — Intro to SQL",
+          "url": "https://www.khanacademy.org/computing/computer-programming/sql",
+          "hours": 5
+        }
+      ],
+      "practice": [
+        "Gõ tay lại 2–3 ví dụ trong tài liệu (không copy) để nhớ cú pháp SQL.",
+        "Tự đặt một câu hỏi dữ liệu và dùng SQL trả lời trọn vẹn."
+      ],
+      "checkpoint": "Tự kiểm: giải một bài mới với SQL trong ~30 phút mà không phải tra cứu liên tục.",
+      "mini_project": {
+        "title": "Phân tích doanh thu bằng SQL",
+        "goal": "Chứng minh khả năng viết truy vấn tổng hợp trả lời câu hỏi kinh doanh trên dữ liệu thật.",
+        "difficulty": "Cơ bản",
+        "dataset": "Chọn một bộ dữ liệu công khai (Kaggle, data.gov) hoặc dữ liệu công việc đã ẩn danh.",
+        "done_criteria": [
+          "Hoàn thành một sản phẩm dùng SQL trên bộ dữ liệu thật, có thể tái chạy.",
+          "Ghi lại quy trình và kết quả bằng tài liệu hoặc dashboard rõ ràng.",
+          "Rút ra ít nhất 3 insight có thể hành động và trình bày ngắn gọn."
+        ],
+        "deliverables": [
+          "File quy trình (notebook/script/workbook) có chú thích từng bước.",
+          "Một báo cáo hoặc dashboard trình bày kết quả.",
+          "README mô tả bài toán, dữ liệu và cách chạy lại."
+        ],
+        "stretch": "Mở rộng: tự động hóa lại quy trình hoặc thêm một chiều phân tích mới bằng SQL.",
+        "cv_bullet": "Ứng dụng SQL để phân tích dữ liệu và tạo báo cáo hỗ trợ ra quyết định."
+      }
+    },
+    {
+      "week": 2,
+      "skill": "Python",
+      "skill_id": "sk_python",
+      "phase": "Nền tảng",
+      "level": "Cơ bản",
+      "focus": "Học lý thuyết cốt lõi rồi thực hành ngay bằng mini-project.",
+      "why": "Xuất hiện trong 18/25 JD của vị trí này, bắt buộc ở 9 nơi — đây là khoảng trống đáng ưu tiên lấp.",
+      "objectives": [
+        "Nắm vững khái niệm cốt lõi và cú pháp/nguyên tắc của Python.",
+        "Tự tay áp dụng Python vào một tập dữ liệu thật từ đầu đến cuối.",
+        "Giải thích được kết quả Python cho người không chuyên."
+      ],
+      "estimated_hours": 5,
+      "resources": [
+        {
+          "title": "Automate the Boring Stuff with Python",
+          "url": "https://automatetheboringstuff.com/",
+          "hours": 12
+        },
+        {
+          "title": "Python Official Tutorial",
+          "url": "https://docs.python.org/3/tutorial/",
+          "hours": 10
+        },
+        {
+          "title": "freeCodeCamp — Scientific Computing with Python",
+          "url": "https://www.freecodecamp.org/learn/scientific-computing-with-python/",
+          "hours": 10
+        }
+      ],
+      "practice": [
+        "Gõ tay lại 2–3 ví dụ trong tài liệu (không copy) để nhớ cú pháp Python.",
+        "Tự đặt một câu hỏi dữ liệu và dùng Python trả lời trọn vẹn."
+      ],
+      "checkpoint": "Tự kiểm: giải một bài mới với Python trong ~30 phút mà không phải tra cứu liên tục.",
+      "mini_project": {
+        "title": "Tự động hóa xử lý dữ liệu bằng Python",
+        "goal": "Chứng minh khả năng dùng Python làm sạch và tổng hợp dữ liệu tự động trên dữ liệu thật.",
+        "difficulty": "Cơ bản",
+        "dataset": "Chọn một bộ dữ liệu công khai (Kaggle, data.gov) hoặc dữ liệu công việc đã ẩn danh.",
+        "done_criteria": [
+          "Hoàn thành một sản phẩm dùng Python trên bộ dữ liệu thật, có thể tái chạy.",
+          "Ghi lại quy trình và kết quả bằng tài liệu hoặc dashboard rõ ràng.",
+          "Rút ra ít nhất 3 insight có thể hành động và trình bày ngắn gọn."
+        ],
+        "deliverables": [
+          "File quy trình (notebook/script/workbook) có chú thích từng bước.",
+          "Một báo cáo hoặc dashboard trình bày kết quả.",
+          "README mô tả bài toán, dữ liệu và cách chạy lại."
+        ],
+        "stretch": "Mở rộng: tự động hóa lại quy trình hoặc thêm một chiều phân tích mới bằng Python.",
+        "cv_bullet": "Ứng dụng Python để phân tích dữ liệu và tạo báo cáo hỗ trợ ra quyết định."
+      }
+    },
+    {
+      "week": 3,
+      "skill": "Tableau · phần 1/2",
+      "skill_id": "sk_tableau",
+      "phase": "Kỹ năng chính",
+      "level": "Trung cấp",
+      "focus": "Nắm nền tảng và cú pháp cốt lõi.",
+      "why": "Xuất hiện trong 15/25 JD của vị trí này, bắt buộc ở 4 nơi — đây là khoảng trống đáng ưu tiên lấp.",
+      "objectives": [
+        "Nắm vững khái niệm cốt lõi và cú pháp/nguyên tắc của Tableau.",
+        "Tự tay áp dụng Tableau vào một tập dữ liệu thật từ đầu đến cuối.",
+        "Giải thích được kết quả Tableau cho người không chuyên."
+      ],
+      "estimated_hours": 5,
+      "resources": [
+        {
+          "title": "Tableau — Free Training Videos",
+          "url": "https://www.tableau.com/learn/training",
+          "hours": 8
+        }
+      ],
+      "practice": [
+        "Gõ tay lại 2–3 ví dụ trong tài liệu (không copy) để nhớ cú pháp Tableau.",
+        "Tự đặt một câu hỏi dữ liệu và dùng Tableau trả lời trọn vẹn."
+      ],
+      "checkpoint": "Tự kiểm: giải một bài mới với Tableau trong ~30 phút mà không phải tra cứu liên tục.",
+      "mini_project": null
+    },
+    {
+      "week": 4,
+      "skill": "Tableau · phần 2/2",
+      "skill_id": "sk_tableau",
+      "phase": "Kỹ năng chính",
+      "level": "Trung cấp",
+      "focus": "Thực hành sâu trên dữ liệu thật và hoàn thành mini-project.",
+      "why": "Xuất hiện trong 15/25 JD của vị trí này, bắt buộc ở 4 nơi — đây là khoảng trống đáng ưu tiên lấp.",
+      "objectives": [],
+      "estimated_hours": 5,
+      "resources": [
+        {
+          "title": "Tableau Public — Resources",
+          "url": "https://public.tableau.com/app/resources",
+          "hours": 4
+        }
+      ],
+      "practice": [
+        "Tự đặt một câu hỏi dữ liệu và dùng Tableau trả lời trọn vẹn.",
+        "Ghi chú 5 lỗi/điểm dễ nhầm khi dùng Tableau để tra lại sau."
+      ],
+      "checkpoint": "Tự kiểm: giải một bài mới với Tableau trong ~30 phút mà không phải tra cứu liên tục.",
+      "mini_project": {
+        "title": "Dashboard KPI tương tác bằng Tableau",
+        "goal": "Chứng minh khả năng trực quan hóa chỉ số kinh doanh bằng Tableau trên dữ liệu thật.",
+        "difficulty": "Trung cấp",
+        "dataset": "Dùng dữ liệu bán hàng/marketing mẫu (Kaggle 'sample sales', Superstore) hoặc số liệu thật đã ẩn danh.",
+        "done_criteria": [
+          "Hoàn thành một sản phẩm dùng Tableau trên bộ dữ liệu thật, có thể tái chạy.",
+          "Ghi lại quy trình và kết quả bằng tài liệu hoặc dashboard rõ ràng.",
+          "Rút ra ít nhất 3 insight có thể hành động và trình bày ngắn gọn."
+        ],
+        "deliverables": [
+          "File quy trình (notebook/script/workbook) có chú thích từng bước.",
+          "Một báo cáo hoặc dashboard trình bày kết quả.",
+          "README mô tả bài toán, dữ liệu và cách chạy lại."
+        ],
+        "stretch": "Mở rộng: tự động hóa lại quy trình hoặc thêm một chiều phân tích mới bằng Tableau.",
+        "cv_bullet": "Ứng dụng Tableau để phân tích dữ liệu và tạo báo cáo hỗ trợ ra quyết định."
+      }
+    }
+  ],
+  "capstone": {
+    "title": "Dự án tổng hợp: mini-portfolio phân tích dữ liệu",
+    "goal": "Kết hợp các kỹ năng vừa học (SQL, Python, Tableau) vào MỘT sản phẩm phân tích hoàn chỉnh trên một bộ dữ liệu bạn quan tâm.",
+    "skills_used": [
+      "SQL",
+      "Python",
+      "Tableau"
+    ],
+    "done_criteria": [
+      "Thu thập & làm sạch dữ liệu, xử lý bằng SQL và các kỹ năng liên quan.",
+      "Xây ít nhất một dashboard hoặc báo cáo trực quan trả lời 3–5 câu hỏi kinh doanh.",
+      "Viết phần 'insight & đề xuất' như thể trình bày cho nhà tuyển dụng.",
+      "Đăng công khai (GitHub/Tableau Public/Notion) kèm README mô tả."
+    ],
+    "cv_bullet": "Thực hiện dự án phân tích dữ liệu đầu-cuối: thu thập, làm sạch, trực quan hóa và đề xuất hành động dựa trên dữ liệu."
+  },
+  "portfolio_tips": [
+    "Mỗi mini-project đẩy lên GitHub/Tableau Public ngay khi xong — nhà tuyển dụng xem được là điểm cộng lớn.",
+    "Viết mỗi dự án theo cấu trúc: câu hỏi kinh doanh → dữ liệu → cách làm → insight → đề xuất.",
+    "Biến done_criteria và cv_bullet thành gạch đầu dòng trong CV; ưu tiên các skill 'Ưu tiên cao'."
+  ]
+}

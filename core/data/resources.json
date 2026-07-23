@@ -1,0 +1,317 @@
+{
+  "sk_sql": [
+    { "title": "SQLBolt — Interactive SQL Lessons", "url": "https://sqlbolt.com", "hours": 6 },
+    { "title": "Mode: SQL Tutorial", "url": "https://mode.com/sql-tutorial/", "hours": 8 },
+    { "title": "Khan Academy — Intro to SQL", "url": "https://www.khanacademy.org/computing/computer-programming/sql", "hours": 5 }
+  ],
+  "sk_python": [
+    { "title": "Python Official Tutorial", "url": "https://docs.python.org/3/tutorial/", "hours": 10 },
+    { "title": "Automate the Boring Stuff with Python", "url": "https://automatetheboringstuff.com/", "hours": 12 },
+    { "title": "freeCodeCamp — Scientific Computing with Python", "url": "https://www.freecodecamp.org/learn/scientific-computing-with-python/", "hours": 10 }
+  ],
+  "sk_r": [
+    { "title": "R for Data Science (2e)", "url": "https://r4ds.hadley.nz/", "hours": 12 },
+    { "title": "swirl — Learn R in R", "url": "https://swirlstats.com/", "hours": 6 }
+  ],
+  "sk_pandas": [
+    { "title": "pandas — Getting Started", "url": "https://pandas.pydata.org/docs/getting_started/index.html", "hours": 6 },
+    { "title": "Kaggle — Pandas Course", "url": "https://www.kaggle.com/learn/pandas", "hours": 4 }
+  ],
+  "sk_numpy": [
+    { "title": "NumPy — Absolute Beginner's Guide", "url": "https://numpy.org/doc/stable/user/absolute_beginners.html", "hours": 4 }
+  ],
+  "sk_excel": [
+    { "title": "Excel Easy — Tutorial", "url": "https://www.excel-easy.com/", "hours": 6 },
+    { "title": "Microsoft — Excel help & learning", "url": "https://support.microsoft.com/en-us/excel", "hours": 5 }
+  ],
+  "sk_google_sheets": [
+    { "title": "Google — Sheets Training & Help", "url": "https://support.google.com/docs/topic/9054603", "hours": 4 }
+  ],
+  "sk_power_query": [
+    { "title": "Microsoft Learn — Power Query documentation", "url": "https://learn.microsoft.com/en-us/power-query/", "hours": 5 }
+  ],
+  "sk_power_bi": [
+    { "title": "Microsoft Learn — Power BI learning paths", "url": "https://learn.microsoft.com/en-us/training/powerplatform/power-bi", "hours": 10 },
+    { "title": "Microsoft — Power BI guided learning", "url": "https://learn.microsoft.com/en-us/power-bi/fundamentals/", "hours": 6 }
+  ],
+  "sk_dax": [
+    { "title": "Microsoft Learn — DAX overview", "url": "https://learn.microsoft.com/en-us/dax/", "hours": 6 },
+    { "title": "SQLBI — Introducing DAX video course", "url": "https://www.sqlbi.com/p/introducing-dax-video-course/", "hours": 5 }
+  ],
+  "sk_tableau": [
+    { "title": "Tableau — Free Training Videos", "url": "https://www.tableau.com/learn/training", "hours": 8 },
+    { "title": "Tableau Public — Resources", "url": "https://public.tableau.com/app/resources", "hours": 4 }
+  ],
+  "sk_looker": [
+    { "title": "Google — Looker Studio Help", "url": "https://support.google.com/looker-studio", "hours": 4 }
+  ],
+  "sk_statistics": [
+    { "title": "Khan Academy — Statistics and Probability", "url": "https://www.khanacademy.org/math/statistics-probability", "hours": 10 },
+    { "title": "StatQuest with Josh Starmer (YouTube)", "url": "https://www.youtube.com/@statquest", "hours": 6 }
+  ],
+  "sk_hypothesis_testing": [
+    { "title": "Khan Academy — Significance tests (hypothesis testing)", "url": "https://www.khanacademy.org/math/statistics-probability/significance-tests-one-sample", "hours": 5 }
+  ],
+  "sk_ab_testing": [
+    { "title": "Udacity — A/B Testing (free course)", "url": "https://www.udacity.com/course/ab-testing--ud257", "hours": 8 }
+  ],
+  "sk_regression": [
+    { "title": "StatQuest — Linear Regression playlist", "url": "https://www.youtube.com/playlist?list=PLblh5JKOoLUIzaEkCLIUxQFjPIlapw8nU", "hours": 5 }
+  ],
+  "sk_data_cleaning": [
+    { "title": "Kaggle — Data Cleaning Course", "url": "https://www.kaggle.com/learn/data-cleaning", "hours": 4 }
+  ],
+  "sk_etl": [
+    { "title": "Microsoft Learn — What is ETL?", "url": "https://learn.microsoft.com/en-us/azure/architecture/data-guide/relational-data/etl", "hours": 4 }
+  ],
+  "sk_data_warehouse": [
+    { "title": "Kimball Group — Dimensional Modeling Techniques", "url": "https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/", "hours": 6 }
+  ],
+  "sk_data_modeling": [
+    { "title": "Microsoft Learn — Understand star schema", "url": "https://learn.microsoft.com/en-us/power-bi/guidance/star-schema", "hours": 4 }
+  ],
+  "sk_bigquery": [
+    { "title": "Google Cloud — BigQuery quickstart", "url": "https://cloud.google.com/bigquery/docs/quickstarts", "hours": 5 }
+  ],
+  "sk_snowflake": [
+    { "title": "Snowflake — Getting Started Guides", "url": "https://docs.snowflake.com/en/user-guide-getting-started", "hours": 5 }
+  ],
+  "sk_data_viz": [
+    { "title": "The Data Visualisation Catalogue", "url": "https://datavizcatalogue.com/", "hours": 4 },
+    { "title": "Storytelling with Data — Blog", "url": "https://www.storytellingwithdata.com/blog", "hours": 4 }
+  ],
+  "sk_dashboard": [
+    { "title": "Tableau — Build a dashboard", "url": "https://help.tableau.com/current/pro/desktop/en-us/dashboards_create.htm", "hours": 4 }
+  ],
+  "sk_storytelling": [
+    { "title": "Storytelling with Data — Book site & resources", "url": "https://www.storytellingwithdata.com/", "hours": 5 }
+  ],
+  "sk_communication": [
+    { "title": "MIT OCW — Communicating with Data", "url": "https://ocw.mit.edu/", "hours": 4 }
+  ],
+  "sk_powerpoint": [
+    { "title": "Microsoft — PowerPoint help & learning", "url": "https://support.microsoft.com/en-us/powerpoint", "hours": 3 }
+  ],
+  "sk_git": [
+    { "title": "Git — Official Book (Pro Git)", "url": "https://git-scm.com/book/en/v2", "hours": 5 },
+    { "title": "GitHub Skills", "url": "https://skills.github.com/", "hours": 3 }
+  ],
+  "sk_machine_learning": [
+    { "title": "Google — Machine Learning Crash Course", "url": "https://developers.google.com/machine-learning/crash-course", "hours": 12 },
+    { "title": "scikit-learn — Getting Started", "url": "https://scikit-learn.org/stable/getting_started.html", "hours": 6 }
+  ],
+  "sk_spark": [
+    { "title": "Apache Spark — Quick Start", "url": "https://spark.apache.org/docs/latest/quick-start.html", "hours": 6 }
+  ],
+  "sk_airflow": [
+    { "title": "Apache Airflow — Tutorials", "url": "https://airflow.apache.org/docs/apache-airflow/stable/tutorial/index.html", "hours": 6 }
+  ],
+  "sk_web_analytics": [
+    { "title": "Google — Analytics (GA4) Skillshop", "url": "https://skillshop.exceedlms.com/student/catalog/list?category_ids=6431-google-analytics-4", "hours": 6 }
+  ],
+  "sk_kpi": [
+    { "title": "Google — Measure What Matters (OKR resources)", "url": "https://www.whatmatters.com/resources", "hours": 3 }
+  ],
+  "sk_sas": [
+    { "title": "SAS — Free Training & Tutorials", "url": "https://www.sas.com/en_us/training/free-training.html", "hours": 8 }
+  ],
+  "sk_spss": [
+    { "title": "IBM — SPSS Statistics documentation & tutorials", "url": "https://www.ibm.com/docs/en/spss-statistics", "hours": 6 }
+  ],
+  "sk_stata": [
+    { "title": "Stata — Resources & Tutorials", "url": "https://www.stata.com/links/resources-for-learning-stata/", "hours": 6 }
+  ],
+  "sk_vba": [
+    { "title": "Microsoft Learn — Excel VBA getting started", "url": "https://learn.microsoft.com/en-us/office/vba/api/overview/excel", "hours": 6 }
+  ],
+  "sk_alteryx": [
+    { "title": "Alteryx Community — Learn Alteryx", "url": "https://community.alteryx.com/t5/Learn-Alteryx/ct-p/learn", "hours": 6 }
+  ],
+  "sk_qlik": [
+    { "title": "Qlik — Free Training (Continuous Classroom)", "url": "https://community.qlik.com/t5/Design/Continuous-Classroom-your-online-learning-platform/ba-p/1579916", "hours": 6 }
+  ],
+  "sk_cloud": [
+    { "title": "AWS Skill Builder — free courses", "url": "https://skillbuilder.aws/", "hours": 8 },
+    { "title": "Microsoft Learn — Azure fundamentals", "url": "https://learn.microsoft.com/en-us/training/azure/", "hours": 6 }
+  ],
+  "sk_relational_db": [
+    { "title": "PostgreSQL Tutorial", "url": "https://www.postgresqltutorial.com/", "hours": 6 },
+    { "title": "MySQL — Getting Started", "url": "https://dev.mysql.com/doc/mysql-getting-started/en/", "hours": 5 }
+  ],
+  "sk_predictive": [
+    { "title": "Forecasting: Principles and Practice (free book)", "url": "https://otexts.com/fpp3/", "hours": 10 }
+  ],
+  "sk_javascript": [
+    { "title": "MDN — JavaScript Guide", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide", "hours": 10 },
+    { "title": "javascript.info — The Modern JavaScript Tutorial", "url": "https://javascript.info/", "hours": 12 }
+  ],
+  "sk_typescript": [
+    { "title": "TypeScript Handbook", "url": "https://www.typescriptlang.org/docs/handbook/intro.html", "hours": 6 }
+  ],
+  "sk_java": [
+    { "title": "dev.java — Learn Java", "url": "https://dev.java/learn/", "hours": 12 }
+  ],
+  "sk_csharp": [
+    { "title": "Microsoft Learn — C#", "url": "https://learn.microsoft.com/en-us/dotnet/csharp/", "hours": 10 }
+  ],
+  "sk_golang": [
+    { "title": "A Tour of Go", "url": "https://go.dev/tour/", "hours": 6 }
+  ],
+  "sk_php": [
+    { "title": "PHP Manual", "url": "https://www.php.net/manual/en/getting-started.php", "hours": 8 }
+  ],
+  "sk_cpp": [
+    { "title": "LearnCpp.com", "url": "https://www.learncpp.com/", "hours": 14 }
+  ],
+  "sk_ruby": [
+    { "title": "Ruby — Documentation", "url": "https://www.ruby-lang.org/en/documentation/", "hours": 8 }
+  ],
+  "sk_html_css": [
+    { "title": "MDN — Learn Web Development", "url": "https://developer.mozilla.org/en-US/docs/Learn", "hours": 10 },
+    { "title": "web.dev — Learn CSS", "url": "https://web.dev/learn/css", "hours": 6 }
+  ],
+  "sk_react": [
+    { "title": "React — Official docs (Learn)", "url": "https://react.dev/learn", "hours": 10 }
+  ],
+  "sk_vue": [
+    { "title": "Vue.js — Guide", "url": "https://vuejs.org/guide/introduction.html", "hours": 8 }
+  ],
+  "sk_angular": [
+    { "title": "Angular — Tutorials", "url": "https://angular.dev/tutorials", "hours": 10 }
+  ],
+  "sk_redux": [
+    { "title": "Redux Essentials", "url": "https://redux.js.org/tutorials/essentials/part-1-overview-concepts", "hours": 5 }
+  ],
+  "sk_tailwind": [
+    { "title": "Tailwind CSS — Docs", "url": "https://tailwindcss.com/docs/installation", "hours": 4 }
+  ],
+  "sk_responsive": [
+    { "title": "MDN — Responsive design", "url": "https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design", "hours": 4 }
+  ],
+  "sk_sass": [
+    { "title": "Sass — Guide", "url": "https://sass-lang.com/guide/", "hours": 3 }
+  ],
+  "sk_nodejs": [
+    { "title": "Node.js — Learn", "url": "https://nodejs.org/en/learn", "hours": 8 }
+  ],
+  "sk_express": [
+    { "title": "Express — Getting Started", "url": "https://expressjs.com/en/starter/installing.html", "hours": 5 }
+  ],
+  "sk_spring": [
+    { "title": "Spring — Guides", "url": "https://spring.io/guides", "hours": 10 }
+  ],
+  "sk_django": [
+    { "title": "Django — Official Tutorial", "url": "https://docs.djangoproject.com/en/stable/intro/tutorial01/", "hours": 8 }
+  ],
+  "sk_flask": [
+    { "title": "Flask — Quickstart", "url": "https://flask.palletsprojects.com/en/stable/quickstart/", "hours": 6 }
+  ],
+  "sk_dotnet": [
+    { "title": "Microsoft Learn — .NET", "url": "https://learn.microsoft.com/en-us/dotnet/", "hours": 10 }
+  ],
+  "sk_laravel": [
+    { "title": "Laravel — Documentation", "url": "https://laravel.com/docs", "hours": 8 }
+  ],
+  "sk_rest_api": [
+    { "title": "REST API Tutorial", "url": "https://restfulapi.net/", "hours": 5 }
+  ],
+  "sk_graphql": [
+    { "title": "GraphQL — Learn", "url": "https://graphql.org/learn/", "hours": 5 }
+  ],
+  "sk_microservices": [
+    { "title": "microservices.io — Patterns", "url": "https://microservices.io/patterns/index.html", "hours": 6 }
+  ],
+  "sk_auth": [
+    { "title": "OAuth 2.0 — Simplified", "url": "https://www.oauth.com/", "hours": 5 }
+  ],
+  "sk_mongodb": [
+    { "title": "MongoDB University", "url": "https://learn.mongodb.com/", "hours": 6 }
+  ],
+  "sk_redis": [
+    { "title": "Redis University", "url": "https://university.redis.io/", "hours": 5 }
+  ],
+  "sk_elasticsearch": [
+    { "title": "Elasticsearch — Getting started", "url": "https://www.elastic.co/guide/en/elasticsearch/reference/current/getting-started.html", "hours": 6 }
+  ],
+  "sk_docker": [
+    { "title": "Docker — Get Started", "url": "https://docs.docker.com/get-started/", "hours": 6 }
+  ],
+  "sk_kubernetes": [
+    { "title": "Kubernetes — Basics", "url": "https://kubernetes.io/docs/tutorials/kubernetes-basics/", "hours": 8 }
+  ],
+  "sk_cicd": [
+    { "title": "GitHub Actions — Docs", "url": "https://docs.github.com/en/actions", "hours": 6 }
+  ],
+  "sk_terraform": [
+    { "title": "Terraform — Tutorials", "url": "https://developer.hashicorp.com/terraform/tutorials", "hours": 6 }
+  ],
+  "sk_ansible": [
+    { "title": "Ansible — Getting Started", "url": "https://docs.ansible.com/ansible/latest/getting_started/index.html", "hours": 5 }
+  ],
+  "sk_linux": [
+    { "title": "Linux Journey", "url": "https://linuxjourney.com/", "hours": 8 }
+  ],
+  "sk_bash": [
+    { "title": "GNU Bash Manual", "url": "https://www.gnu.org/software/bash/manual/bash.html", "hours": 5 }
+  ],
+  "sk_nginx": [
+    { "title": "Nginx — Beginner's Guide", "url": "https://nginx.org/en/docs/beginners_guide.html", "hours": 4 }
+  ],
+  "sk_monitoring": [
+    { "title": "Prometheus — Overview", "url": "https://prometheus.io/docs/introduction/overview/", "hours": 5 }
+  ],
+  "sk_kafka": [
+    { "title": "Apache Kafka — Quickstart", "url": "https://kafka.apache.org/quickstart", "hours": 6 }
+  ],
+  "sk_dbt": [
+    { "title": "dbt — Learn", "url": "https://learn.getdbt.com/", "hours": 5 }
+  ],
+  "sk_deep_learning": [
+    { "title": "fast.ai — Practical Deep Learning", "url": "https://course.fast.ai/", "hours": 12 }
+  ],
+  "sk_dl_frameworks": [
+    { "title": "PyTorch — Tutorials", "url": "https://pytorch.org/tutorials/", "hours": 8 }
+  ],
+  "sk_nlp": [
+    { "title": "Hugging Face — NLP Course", "url": "https://huggingface.co/learn/nlp-course", "hours": 10 }
+  ],
+  "sk_computer_vision": [
+    { "title": "OpenCV — Tutorials", "url": "https://docs.opencv.org/4.x/d9/df8/tutorial_root.html", "hours": 8 }
+  ],
+  "sk_mlops": [
+    { "title": "Google Cloud — MLOps", "url": "https://cloud.google.com/architecture/mlops-continuous-delivery-and-automation-pipelines-in-machine-learning", "hours": 6 }
+  ],
+  "sk_manual_testing": [
+    { "title": "Ministry of Testing", "url": "https://www.ministryoftesting.com/", "hours": 6 }
+  ],
+  "sk_test_automation": [
+    { "title": "Selenium — Documentation", "url": "https://www.selenium.dev/documentation/", "hours": 8 }
+  ],
+  "sk_api_testing": [
+    { "title": "Postman — Learning Center", "url": "https://learning.postman.com/", "hours": 5 }
+  ],
+  "sk_performance_testing": [
+    { "title": "Apache JMeter — Get Started", "url": "https://jmeter.apache.org/usermanual/get-started.html", "hours": 6 }
+  ],
+  "sk_test_design": [
+    { "title": "Ministry of Testing — Test design", "url": "https://www.ministryoftesting.com/dojo", "hours": 4 }
+  ],
+  "sk_unit_testing": [
+    { "title": "JUnit 5 — User Guide", "url": "https://junit.org/junit5/docs/current/user-guide/", "hours": 4 }
+  ],
+  "sk_agile": [
+    { "title": "The Scrum Guide", "url": "https://scrumguides.org/scrum-guide.html", "hours": 3 }
+  ],
+  "sk_jira": [
+    { "title": "Atlassian — Jira Guides", "url": "https://www.atlassian.com/software/jira/guides", "hours": 3 }
+  ],
+  "sk_system_design": [
+    { "title": "System Design Primer (GitHub)", "url": "https://github.com/donnemartin/system-design-primer", "hours": 12 }
+  ],
+  "sk_dsa": [
+    { "title": "VisuAlgo — Data Structures & Algorithms", "url": "https://visualgo.net/en", "hours": 12 }
+  ],
+  "sk_problem_solving": [
+    { "title": "LeetCode — Explore", "url": "https://leetcode.com/explore/", "hours": 10 }
+  ]
+}

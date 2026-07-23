@@ -1,0 +1,94 @@
+{
+  "role": { "id": "data_analyst", "name": "Data Analyst" },
+  "readiness": { "band": "khoảng 50–60%", "core": "4/7 skill core", "jd_count": 25 },
+  "skills": [
+    {
+      "skill_id": "sk_sql",
+      "name": "SQL",
+      "category": "Query Language",
+      "status": "missing",
+      "label": "Ưu tiên cao",
+      "gap_score": 0.79,
+      "demand": { "jd_count": 22, "total_jd": 25, "required_count": 12, "freq": 0.88 },
+      "coverage": { "in_cv": false, "evidence": null },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_python",
+      "name": "Python",
+      "category": "Programming",
+      "status": "missing",
+      "label": "Ưu tiên cao",
+      "gap_score": 0.59,
+      "demand": { "jd_count": 18, "total_jd": 25, "required_count": 9, "freq": 0.72 },
+      "coverage": { "in_cv": false, "evidence": null },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_tableau",
+      "name": "Tableau",
+      "category": "BI Tool",
+      "status": "partial",
+      "label": "Cần xác nhận",
+      "gap_score": 0.19,
+      "demand": { "jd_count": 15, "total_jd": 25, "required_count": 4, "freq": 0.6 },
+      "coverage": { "in_cv": true, "evidence": "Có nhắc 'dùng Tableau trong đồ án' nhưng không rõ mức độ" },
+      "needs_confirmation": true
+    },
+    {
+      "skill_id": "sk_git",
+      "name": "Git",
+      "category": "Tooling",
+      "status": "missing",
+      "label": "Ít quan trọng",
+      "gap_score": 0.04,
+      "demand": { "jd_count": 3, "total_jd": 25, "required_count": 0, "freq": 0.12 },
+      "coverage": { "in_cv": false, "evidence": null },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_excel",
+      "name": "Excel",
+      "category": "Spreadsheet",
+      "status": "covered",
+      "label": "Đã đáp ứng",
+      "gap_score": 0.0,
+      "demand": { "jd_count": 20, "total_jd": 25, "required_count": 6, "freq": 0.8 },
+      "coverage": { "in_cv": true, "evidence": "Thành thạo Excel nâng cao: pivot table, hàm phức tạp" },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_data_viz",
+      "name": "Data Visualization",
+      "category": "Visualization",
+      "status": "covered",
+      "label": "Đã đáp ứng",
+      "gap_score": 0.0,
+      "demand": { "jd_count": 17, "total_jd": 25, "required_count": 7, "freq": 0.68 },
+      "coverage": { "in_cv": true, "evidence": "Trực quan hóa dữ liệu bằng matplotlib và trình bày insight" },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_statistics",
+      "name": "Statistics",
+      "category": "Analytics",
+      "status": "covered",
+      "label": "Đã đáp ứng",
+      "gap_score": 0.0,
+      "demand": { "jd_count": 16, "total_jd": 25, "required_count": 5, "freq": 0.64 },
+      "coverage": { "in_cv": true, "evidence": "Áp dụng thống kê mô tả và kiểm định giả thuyết" },
+      "needs_confirmation": false
+    },
+    {
+      "skill_id": "sk_power_bi",
+      "name": "Power BI",
+      "category": "BI Tool",
+      "status": "covered",
+      "label": "Đã đáp ứng",
+      "gap_score": 0.0,
+      "demand": { "jd_count": 15, "total_jd": 25, "required_count": 4, "freq": 0.6 },
+      "coverage": { "in_cv": true, "evidence": "Xây dashboard Power BI theo dõi KPI hàng tuần" },
+      "needs_confirmation": false
+    }
+  ]
+}

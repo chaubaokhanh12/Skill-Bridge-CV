@@ -1,0 +1,22 @@
+Frontend Developer — TechViet Solutions
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Frontend Developer làm việc chặt chẽ với đội sản phẩm và kỹ thuật để giải các bài toán thực tế của người dùng.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- JavaScript
+- HTML/CSS
+- React
+- TypeScript
+- Redux
+
+Ưu tiên (preferred):
+- Tailwind CSS
+- Git
+- Responsive Design
+
+Là lợi thế (nice to have):
+- REST API
+- Sass/SCSS
+- Unit Testing

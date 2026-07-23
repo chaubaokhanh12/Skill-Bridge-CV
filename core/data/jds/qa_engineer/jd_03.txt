@@ -1,0 +1,21 @@
+QA Engineer — Ngân hàng số Nova
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Vị trí QA Engineer sẽ tham gia trực tiếp vào vòng đời phát triển sản phẩm, từ thiết kế tới vận hành.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Manual Testing
+- Test Automation
+- Test Case Design
+- API Testing
+- Jira
+
+Ưu tiên (preferred):
+- Unit Testing
+- Git
+- SQL
+
+Là lợi thế (nice to have):
+- REST API
+- Performance Testing

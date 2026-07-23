@@ -1,0 +1,24 @@
+{
+  "suggestions": [
+    {
+      "original": "Sử dụng Python và thư viện Pandas để làm sạch dữ liệu và xử lý hơn 50.000 dòng dữ liệu khảo sát.",
+      "suggested": "Làm sạch và xử lý hơn 50.000 dòng dữ liệu khảo sát bằng Python (Pandas), giảm thời gian tổng hợp báo cáo hàng tháng.",
+      "reason": "Đưa động từ hành động và con số lên đầu theo cách JD Data Analyst hay mô tả kết quả."
+    },
+    {
+      "original": "Trực quan hóa dữ liệu (data visualization) bằng matplotlib và trình bày insight cho khách hàng.",
+      "suggested": "Trực quan hóa dữ liệu bằng matplotlib và trình bày insight hỗ trợ khách hàng ra quyết định.",
+      "reason": "Nhấn vào tác động (hỗ trợ ra quyết định) — cụm nhà tuyển dụng quan tâm — mà không thêm kỹ năng mới."
+    },
+    {
+      "original": "Áp dụng thống kê (statistics) mô tả và kiểm định giả thuyết để phân tích kết quả khảo sát.",
+      "suggested": "Áp dụng thống kê mô tả và kiểm định giả thuyết để rút ra kết luận có ý nghĩa từ dữ liệu khảo sát.",
+      "reason": "Chuyển từ 'phân tích' chung chung sang 'rút ra kết luận có ý nghĩa', khớp ngôn ngữ JD."
+    },
+    {
+      "original": "Thành thạo Excel nâng cao: pivot table, Power Query cơ bản, các hàm phức tạp.",
+      "suggested": "Xây dựng báo cáo tổng hợp bằng Excel nâng cao (PivotTable, Power Query, hàm phức tạp).",
+      "reason": "Diễn đạt theo hướng sản phẩm đầu ra (báo cáo tổng hợp) thay vì liệt kê kỹ năng."
+    }
+  ]
+}

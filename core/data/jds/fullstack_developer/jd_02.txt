@@ -1,0 +1,21 @@
+Full-stack Developer — TechViet Solutions
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Vị trí Full-stack Developer sẽ tham gia trực tiếp vào vòng đời phát triển sản phẩm, từ thiết kế tới vận hành.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- JavaScript
+- React
+- Node.js
+- REST API
+- SQL
+
+Ưu tiên (preferred):
+- TypeScript
+- HTML/CSS
+- Git
+
+Là lợi thế (nice to have):
+- NestJS
+- Docker

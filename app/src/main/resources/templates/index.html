@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkillBridge — phân tích kỹ năng theo thị trường</title>
+  <script th:inline="none">try{var t=localStorage.getItem('sb-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="logo">S</div>
+    <div>
+      <h1>SkillBridge</h1>
+      <p class="tag">Đối chiếu CV của bạn với nhu cầu thật của thị trường</p>
+    </div>
+    <div class="themes">
+      <button class="theme-toggle" type="button" id="themeToggle">Chế độ tối</button>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li th:classappend="${analysis} ? 'done' : 'active'"><span class="s-n">1</span> Nhập hồ sơ</li>
+    <li th:classappend="${analysis} ? 'done' : ''"><span class="s-n">2</span> Xác nhận kỹ năng</li>
+    <li th:classappend="${analysis} ? 'active' : ''"><span class="s-n">3</span> Kết quả</li>
+    <li><span class="s-n">4</span> Lộ trình &amp; CV</li>
+  </ol>
+
+  <div class="banner" th:if="${error}" th:text="${error}">loi</div>
+  <div class="banner warn" th:if="${roadmapError}" th:text="${roadmapError}">canh bao</div>
+
+  <!-- ================= FORM (an khi da co ket qua) ================= -->
+  <form th:unless="${analysis}" class="card" method="post" action="/scan" enctype="multipart/form-data">
+    <h2>Phân tích CV</h2>
+    <p class="sub">Chọn vị trí, cấp độ và tải CV lên. Bước tiếp theo bạn sẽ xác nhận kỹ năng trước khi xem kết quả.</p>
+
+    <div class="field">
+      <label for="role">Vị trí ứng tuyển</label>
+      <select id="role" name="role_id" required>
+        <option th:each="r : ${roles}"
+                th:value="${r.id()}"
+                th:text="${r.name()} + ' · ' + ${r.jdCount()} + ' JD'"
+                th:selected="${selectedRole != null and selectedRole == r.id()}">Data Analyst</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="level">Cấp độ ứng tuyển</label>
+      <select id="level" name="level">
+        <option value="junior" th:selected="${level == null or level == 'junior'}">Junior (mới vào nghề)</option>
+        <option value="mid" th:selected="${level == 'mid'}">Mid (đã có kinh nghiệm)</option>
+        <option value="senior" th:selected="${level == 'senior'}">Senior (đòi hỏi chuyên sâu)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Số giờ học mỗi tuần</label>
+      <div class="slider-row">
+        <input type="range" id="hours" name="hours" min="2" max="20" step="1" th:value="${hours}"/>
+        <span class="hours-badge"><span id="hoursVal" th:text="${hours}">5</span> giờ/tuần</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>CV của bạn</label>
+      <label class="filebox">
+        <span class="pill">Chọn tệp</span>
+        <span class="fname" id="fname">Chưa chọn tệp, hỗ trợ .pdf, .docx, .txt</span>
+        <input type="file" name="cv_file" id="cv_file" accept=".pdf,.docx,.txt"/>
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tiếp tục: xác nhận kỹ năng</button>
+  </form>
+
+  <!-- ================= KET QUA ================= -->
+  <div th:if="${analysis}">
+
+    <p class="eyebrow" style="margin-top:32px">Bản đánh giá · <span th:text="${analysis.role().name()}">Data Analyst</span><span
+        th:if="${analysis.role().level()}"> · <span th:text="${analysis.role().level()}">junior</span></span></p>
+
+    <!-- Hero + gap meter -->
+    <div class="hero">
+      <div class="readiness-row">
+        <div class="big" id="rdband" th:text="${analysis.readiness().band()}">khoảng 60–70%</div>
+        <p class="evi">dựa trên <span th:text="${analysis.readiness().jdCount()}">25</span> JD ·
+          <span th:text="${analysis.readiness().core()}">5/7 skill core</span></p>
+      </div>
+      <div class="meter">
+        <div class="meter-labels"><span class="you">bạn ở đây</span><span>thị trường cần</span></div>
+        <div class="track">
+          <div class="fill" id="gapfill"></div>
+          <div class="gap-hatch" id="gaphatch"></div>
+        </div>
+        <div class="ticks"><span>0</span><span>25</span><span>50</span><span>75</span><span>100%</span></div>
+      </div>
+    </div>
+
+    <!-- Danh sach skill: hang hairline -->
+    <h2 class="section-h">Kỹ năng theo thị trường</h2>
+    <p class="section-note">Sắp theo mức ưu tiên. Con số là bằng chứng từ JD, bạn tự kiểm chứng được. CV: <span th:text="${filename}">cv.txt</span></p>
+
+    <div class="list">
+      <div class="row" th:each="s : ${analysis.skills()}">
+        <span class="name" th:text="${s.name()}">SQL</span>
+        <span class="badge" th:classappend="${s.labelClass()}" th:text="${s.label()}">Ưu tiên cao</span>
+        <div class="evi2">
+          <span th:text="${s.demand().jdCount()} + '/' + ${s.demand().totalJd()} + ' JD · ' + ${s.demand().requiredCount()} + ' required'">22/25 JD · 12 required</span>
+          <span th:text="${s.cvStatusText()}">Không có trong CV</span>
+        </div>
+        <div class="quote"
+             th:if="${s.coverage() != null and s.coverage().evidence() != null}"
+             th:text="'“' + ${s.coverage().evidence()} + '”'">trích dẫn</div>
+
+        <div class="confirm" th:if="${s.needsConfirmation()}">
+          <span class="q" th:text="'Bạn có dùng ' + ${s.name()} + ' không?'">Bạn có dùng skill này không?</span>
+          <form method="post" action="/confirm">
+            <input type="hidden" name="skill_id" th:value="${s.skillId()}"/>
+            <input type="hidden" name="value" value="have"/>
+            <button class="chip yes" type="submit">Thành thạo</button>
+          </form>
+          <form method="post" action="/confirm">
+            <input type="hidden" name="skill_id" th:value="${s.skillId()}"/>
+            <input type="hidden" name="value" value="partial"/>
+            <button class="chip" type="submit">Cơ bản</button>
+          </form>
+          <form method="post" action="/confirm">
+            <input type="hidden" name="skill_id" th:value="${s.skillId()}"/>
+            <input type="hidden" name="value" value="none"/>
+            <button class="chip no" type="submit">Không dùng</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tao lo trinh -->
+    <form class="card" method="post" action="/roadmap">
+      <h2>Tạo lộ trình học</h2>
+      <p class="sub">Chọn những kỹ năng bạn muốn học. Lộ trình xếp theo thứ tự hợp lý và tầm cấp độ bạn đã chọn.</p>
+      <input type="hidden" name="hours" th:value="${hours}"/>
+      <div class="picker">
+        <label class="pick" th:each="s : ${analysis.skills()}" th:if="${s.status() != 'covered'}">
+          <input type="checkbox" name="skill_ids" th:value="${s.skillId()}"
+                 th:checked="${highPriorityIds != null and highPriorityIds.contains(s.skillId())}"/>
+          <span class="n" th:text="${s.name()}">SQL</span>
+          <span class="b badge" th:classappend="${s.labelClass()}" th:text="${s.label()}">Ưu tiên cao</span>
+        </label>
+      </div>
+      <div class="toolbar">
+        <button type="submit" class="btn btn-primary grow">Tạo lộ trình học</button>
+      </div>
+    </form>
+
+    <!-- Goi y viet lai CV + Reset -->
+    <div class="toolbar">
+      <form method="post" action="/suggest" class="grow"><button class="btn btn-primary grow" type="submit">Gợi ý chỉnh CV cho khớp JD</button></form>
+      <form method="post" action="/reset"><button class="btn btn-ghost" type="submit">Phân tích CV khác</button></form>
+    </div>
+
+    <p class="foot">
+      Kết quả dựa trên nội dung CV và <span th:text="${analysis.readiness().jdCount()}">25</span> JD này.
+      Tuyển dụng thật còn phụ thuộc phỏng vấn, portfolio và mức độ phù hợp mà công cụ không đo được.
+    </p>
+  </div>
+
+  <p class="foot" th:unless="${analysis}">
+    Công cụ chỉ ra khoảng cách kỹ năng dựa trên dữ liệu JD thật, không phải lời hứa được nhận việc.
+  </p>
+</div>
+
+<script th:inline="none">
+  // Toggle sáng/tối
+  (function () {
+    var KEY = 'sb-theme';
+    function apply(mode) {
+      if (mode === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+      var b = document.getElementById('themeToggle');
+      if (b) { b.textContent = (mode === 'dark') ? 'Chế độ sáng' : 'Chế độ tối'; }
+    }
+    var saved; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'dark' ? 'dark' : 'light');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+      apply(next);
+    });
+  })();
+
+  // File name + slider
+  document.getElementById('cv_file')?.addEventListener('change', function (e) {
+    var f = e.target.files[0];
+    document.getElementById('fname').textContent = f ? f.name : 'Chưa chọn tệp, hỗ trợ .pdf, .docx, .txt';
+  });
+  var h = document.getElementById('hours'), hv = document.getElementById('hoursVal');
+  h?.addEventListener('input', function () { hv.textContent = h.value; });
+
+  // Gap meter: fill tới điểm giữa của dải band + đếm số (1 lần)
+  (function () {
+    var band = document.getElementById('rdband');
+    if (!band) return;
+    var m = band.textContent.match(/(\d+)\s*[–-]\s*(\d+)/);
+    if (!m) return;
+    var lo = +m[1], hi = +m[2], mid = (lo + hi) / 2;
+    var fill = document.getElementById('gapfill');
+    var hatch = document.getElementById('gaphatch');
+    requestAnimationFrame(function () {
+      if (fill) fill.style.width = mid + '%';
+      if (hatch) hatch.style.left = mid + '%';
+    });
+    var reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+    if (reduce) return;
+    var pre = band.textContent.slice(0, m.index);
+    var suf = band.textContent.slice(m.index + m[0].length);
+    var start = null;
+    function step(t) {
+      if (!start) start = t;
+      var p = Math.min((t - start) / 900, 1);
+      band.textContent = pre + Math.round(lo * p) + '–' + Math.round(hi * p) + suf;
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  })();
+</script>
+</body>
+</html>

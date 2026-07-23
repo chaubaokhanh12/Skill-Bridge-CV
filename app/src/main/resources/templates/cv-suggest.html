@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gợi ý chỉnh CV — SkillBridge</title>
+  <script th:inline="none">try{var t=localStorage.getItem('sb-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="logo">S</div>
+    <div>
+      <h1>Gợi ý chỉnh CV</h1>
+      <p class="tag">Viết lại cho khớp ngôn ngữ nhà tuyển dụng. Chỉ tái trình bày kinh nghiệm đã có.</p>
+    </div>
+    <div class="themes">
+      <button class="theme-toggle" type="button" id="themeToggle">Chế độ tối</button>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li class="done"><span class="s-n">1</span> Nhập hồ sơ</li>
+    <li class="done"><span class="s-n">2</span> Xác nhận kỹ năng</li>
+    <li class="done"><span class="s-n">3</span> Kết quả</li>
+    <li class="active"><span class="s-n">4</span> Lộ trình &amp; CV</li>
+  </ol>
+
+  <a class="back" href="/">← Quay lại kết quả</a>
+
+  <div class="banner warn" th:if="${suggestions == null or suggestions.isEmpty()}">
+    Chưa có dòng nào cần chỉnh — CV của bạn đã diễn đạt khá tốt.
+  </div>
+
+  <form method="post" action="/download-cv" th:if="${suggestions != null and !suggestions.isEmpty()}">
+    <p class="sub" style="margin:8px 2px 0">Bỏ tick những gợi ý bạn không muốn. Các dòng được tick sẽ nằm trong file tải về.</p>
+
+    <div class="card sug" th:each="s : ${suggestions}">
+      <label class="sug-head">
+        <input type="checkbox" name="suggested" th:value="${s.suggested()}" checked/>
+        <span class="sug-accept">Dùng gợi ý này</span>
+      </label>
+      <div class="sug-orig">
+        <span class="sug-k">Bản gốc</span>
+        <span th:text="${s.original()}">Làm đồ án phân tích số liệu bằng Excel</span>
+      </div>
+      <div class="sug-new">
+        <span class="sug-k">Gợi ý</span>
+        <span th:text="${s.suggested()}">Phân tích dữ liệu và trực quan hóa bằng Excel...</span>
+      </div>
+      <div class="sug-reason" th:if="${s.reason()}" th:text="${s.reason()}">Khớp cụm từ JD hay dùng</div>
+    </div>
+
+    <div class="toolbar">
+      <button type="submit" class="btn btn-primary grow">Tải CV gợi ý (.md)</button>
+      <a class="btn btn-ghost" href="/">Xong</a>
+    </div>
+  </form>
+
+  <p class="footnote">
+    Gợi ý chỉ diễn đạt lại kinh nghiệm sẵn có trong CV, không thêm kỹ năng bạn chưa từng làm.
+    Hãy đọc lại và chỉnh cho đúng sự thật trước khi dùng.
+  </p>
+</div>
+<script th:inline="none">
+  (function () {
+    var KEY = 'sb-theme';
+    function apply(mode) {
+      if (mode === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+      var b = document.getElementById('themeToggle');
+      if (b) { b.textContent = (mode === 'dark') ? 'Chế độ sáng' : 'Chế độ tối'; }
+    }
+    var saved; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'dark' ? 'dark' : 'light');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+      apply(next);
+    });
+  })();
+</script>
+</body>
+</html>

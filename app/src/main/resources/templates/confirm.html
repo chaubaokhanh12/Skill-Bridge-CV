@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xác nhận kỹ năng — SkillBridge</title>
+  <script th:inline="none">try{var t=localStorage.getItem('sb-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" th:href="@{/css/app.css}"/>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="logo">S</div>
+    <div>
+      <h1>Xác nhận kỹ năng</h1>
+      <p class="tag">Chấm lại mức thành thạo để kết quả chính xác hơn. CV: <span th:text="${filename}">cv.txt</span></p>
+    </div>
+    <div class="themes">
+      <button class="theme-toggle" type="button" id="themeToggle">Chế độ tối</button>
+    </div>
+  </div>
+
+  <ol class="steps">
+    <li class="done"><span class="s-n">1</span> Nhập hồ sơ</li>
+    <li class="active"><span class="s-n">2</span> Xác nhận kỹ năng</li>
+    <li><span class="s-n">3</span> Kết quả</li>
+    <li><span class="s-n">4</span> Lộ trình &amp; CV</li>
+  </ol>
+
+  <a class="back" href="/">← Quay lại</a>
+
+  <form class="card" method="post" action="/confirm-skills">
+    <h2>Chúng tôi tìm thấy các kỹ năng này trong CV</h2>
+    <p class="sub">Với mỗi kỹ năng, chọn mức bạn tự đánh giá. Bước này giúp phân biệt "đã có" và "chưa đủ sâu".</p>
+
+    <div class="confirm-list">
+      <div class="crow" th:each="s : ${cvSkills}">
+        <div class="crow-info">
+          <div class="crow-name" th:text="${s.name()}">SQL</div>
+          <div class="crow-ev" th:if="${s.evidence()}" th:text="'“' + ${s.evidence()} + '”'">bằng chứng</div>
+        </div>
+        <div class="seg" role="radiogroup">
+          <input type="radio" th:id="'p_' + ${s.skillId()} + '_pro'" th:name="'prof_' + ${s.skillId()}"
+                 value="proficient" th:checked="${s.proficiencyGuess() == 'proficient'}"/>
+          <label th:for="'p_' + ${s.skillId()} + '_pro'">Thành thạo</label>
+          <input type="radio" th:id="'p_' + ${s.skillId()} + '_bas'" th:name="'prof_' + ${s.skillId()}"
+                 value="basic" th:checked="${s.proficiencyGuess() != 'proficient'}"/>
+          <label th:for="'p_' + ${s.skillId()} + '_bas'">Cơ bản</label>
+          <input type="radio" th:id="'p_' + ${s.skillId()} + '_non'" th:name="'prof_' + ${s.skillId()}"
+                 value="none"/>
+          <label th:for="'p_' + ${s.skillId()} + '_non'">Không dùng</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="field" style="margin-top:22px">
+      <label for="added">Thêm kỹ năng CV chưa ghi rõ (phân tách bằng dấu phẩy)</label>
+      <input type="text" id="added" name="added" placeholder="vd: Power BI, A/B testing"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Xác nhận và xem kết quả</button>
+  </form>
+
+  <p class="footnote">
+    Bạn tự chấm, không phải AI đoán thay. Kết quả phân tích sẽ dựa trên hồ sơ bạn xác nhận ở đây.
+  </p>
+</div>
+<script th:inline="none">
+  (function () {
+    var KEY = 'sb-theme';
+    function apply(mode) {
+      if (mode === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); }
+      else { document.documentElement.removeAttribute('data-theme'); }
+      var b = document.getElementById('themeToggle');
+      if (b) { b.textContent = (mode === 'dark') ? 'Chế độ sáng' : 'Chế độ tối'; }
+    }
+    var saved; try { saved = localStorage.getItem(KEY); } catch (e) {}
+    apply(saved === 'dark' ? 'dark' : 'light');
+    var btn = document.getElementById('themeToggle');
+    if (btn) btn.addEventListener('click', function () {
+      var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      try { localStorage.setItem(KEY, next); } catch (e) {}
+      apply(next);
+    });
+  })();
+</script>
+</body>
+</html>

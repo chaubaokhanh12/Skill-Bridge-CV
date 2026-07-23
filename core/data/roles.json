@@ -1,0 +1,10 @@
+[
+  { "id": "data_analyst",       "name": "Data Analyst",        "jds_dir": "data/jds/data_analyst" },
+  { "id": "data_engineer",      "name": "Data Engineer",       "jds_dir": "data/jds/data_engineer" },
+  { "id": "data_scientist",     "name": "Data Scientist",      "jds_dir": "data/jds/data_scientist" },
+  { "id": "frontend_developer", "name": "Frontend Developer",  "jds_dir": "data/jds/frontend_developer" },
+  { "id": "backend_developer",  "name": "Backend Developer",   "jds_dir": "data/jds/backend_developer" },
+  { "id": "fullstack_developer","name": "Full-stack Developer","jds_dir": "data/jds/fullstack_developer" },
+  { "id": "devops_engineer",    "name": "DevOps Engineer",     "jds_dir": "data/jds/devops_engineer" },
+  { "id": "qa_engineer",        "name": "QA Engineer",         "jds_dir": "data/jds/qa_engineer" }
+]

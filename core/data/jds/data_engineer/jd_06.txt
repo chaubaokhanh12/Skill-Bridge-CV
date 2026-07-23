@@ -1,0 +1,22 @@
+Data Engineer — Công ty Fintech PayZen
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm Data Engineer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- SQL
+- Python
+- ETL
+- Apache Airflow
+
+Ưu tiên (preferred):
+- Apache Spark
+- Data Modeling
+- Apache Kafka
+- dbt
+- Data Warehouse
+
+Là lợi thế (nice to have):
+- BigQuery
+- Cloud Platforms

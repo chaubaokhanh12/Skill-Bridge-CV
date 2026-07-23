@@ -1,0 +1,22 @@
+Backend Developer — TechViet Solutions
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm Backend Developer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Java
+- Spring Boot
+- REST API
+- Docker
+
+Ưu tiên (preferred):
+- Git
+- Microservices
+- PostgreSQL
+- SQL
+
+Là lợi thế (nice to have):
+- MongoDB
+- Authentication
+- Redis

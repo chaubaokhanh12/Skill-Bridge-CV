@@ -1,0 +1,20 @@
+Backend Developer — Tập đoàn Viễn thông Sao Việt
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Vị trí Backend Developer sẽ tham gia trực tiếp vào vòng đời phát triển sản phẩm, từ thiết kế tới vận hành.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Java
+- Spring Boot
+- REST API
+- Docker
+- Microservices
+
+Ưu tiên (preferred):
+- SQL
+- Git
+- PostgreSQL
+
+Là lợi thế (nice to have):
+- MongoDB

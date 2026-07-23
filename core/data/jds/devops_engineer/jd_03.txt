@@ -1,0 +1,21 @@
+DevOps Engineer — Công ty Công nghệ FTX
+[JD MẪU tự sinh để demo — thay bằng JD thật trước khi trình bày]
+
+Mô tả công việc:
+Chúng tôi đang tìm DevOps Engineer năng động, chủ động, sẵn sàng cùng đội ngũ xây dựng sản phẩm quy mô lớn.
+
+Yêu cầu bắt buộc (must have, thành thạo):
+- Docker
+- Kubernetes
+- CI/CD
+- Linux
+- Shell Scripting
+- Git
+
+Ưu tiên (preferred):
+- Terraform
+- Cloud Platforms
+
+Là lợi thế (nice to have):
+- Nginx
+- Apache Kafka
