@@ -73,16 +73,18 @@ class MarketAnalyzer:
                 status = "covered" if conf >= config.PARTIAL_CONF_MAX else "partial"
             else:
                 status = "missing"
-            cov[sid] = {"status": status, "in_cv": in_cv, "evidence": evidence}
+            cov[sid] = {"status": status, "in_cv": in_cv, "evidence": evidence, "overridden": sid in override_map}
         return cov
 
     # -- Tầng 5: gap + nhãn + readiness -----------------------------------
     @staticmethod
-    def _label(status: str, freq: float, jd_count: int, low_cut: float) -> str:
+    def _label(status: str, freq: float, jd_count: int, low_cut: float, overridden: bool = False) -> str:
         if status == "covered":
             return config.LABEL_MET
         if jd_count < low_cut:
             return config.LABEL_LOW
+        if overridden:  # user đã trả lời rồi -> không hỏi lại, chốt theo mức độ ưu tiên
+            return config.LABEL_HIGH if freq >= config.CORE_FREQ else config.LABEL_LOW
         if status == "missing" and freq >= config.CORE_FREQ:
             return config.LABEL_HIGH
         return config.LABEL_CONFIRM
@@ -91,10 +93,10 @@ class MarketAnalyzer:
         low_cut = max(3, 0.15 * total_jd)
         rows = []
         for sid, p in profile.items():
-            cov = coverage_map.get(sid, {"status": "missing", "in_cv": False, "evidence": None})
+            cov = coverage_map.get(sid, {"status": "missing", "in_cv": False, "evidence": None, "overridden": False})
             status = cov["status"]
             gap = p["demand"] * (1 - config.COVERAGE_VALUE[status])
-            label = self._label(status, p["freq"], p["jd_count"], low_cut)
+            label = self._label(status, p["freq"], p["jd_count"], low_cut, cov.get("overridden", False))
             rows.append({
                 "skill_id": sid,
                 "name": self.tax.canonical_name(sid),
@@ -114,8 +116,8 @@ class MarketAnalyzer:
     @staticmethod
     def _band(ratio: float) -> str:
         pct = max(0, min(100, round(ratio * 100)))
-        lo = min(90, (pct // 10) * 10)
-        return f"khoảng {lo}–{lo + 10}%"  # '–' en-dash theo spec
+        lo = min(99, (pct // 1) * 1)
+        return f"khoảng {lo}–{lo + 1}%"  # '–' en-dash theo spec
 
     def readiness(self, rows: list, profile: dict, total_jd: int) -> dict:
         status_by_id = {r["skill_id"]: r["status"] for r in rows}
