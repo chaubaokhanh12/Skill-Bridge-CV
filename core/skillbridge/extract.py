@@ -7,7 +7,7 @@
 - scan_cv(): trích + normalize + đoán proficiency cho bước xác nhận (/scan-cv).
 
 Việc extractor hoán đổi được là bằng chứng: "trí tuệ" của kết quả nằm ở tầng chuẩn hóa +
-chấm điểm phía sau, KHÔNG phụ thuộc riêng LLM (xem TECHNICAL_REPORT.md).
+chấm điểm phía sau (analyze.py — tất định), KHÔNG phụ thuộc riêng LLM.
 """
 import os
 import re

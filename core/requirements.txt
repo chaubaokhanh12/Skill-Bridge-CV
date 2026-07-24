@@ -3,7 +3,8 @@ fastapi
 uvicorn[standard]
 python-multipart
 python-dotenv
-anthropic
+anthropic                 # provider mặc định (Claude) — nạp lười, chỉ cần khi MOCK=0
+openai                    # khi LLM_PROVIDER=openai / endpoint tương thích OpenAI — nạp lười
 sentence-transformers
 numpy
 pdfplumber

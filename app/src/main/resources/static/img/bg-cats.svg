@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <g id="c">
+      <ellipse cx="0" cy="7" rx="8.5" ry="7"/>
+      <circle cx="0" cy="-4" r="6.5"/>
+      <path d="M-6,-8 L-8.5,-16 L-1.5,-10 Z"/>
+      <path d="M6,-8 L8.5,-16 L1.5,-10 Z"/>
+      <path d="M8,10 q7,0 7,-7 q0,-2.5 -2,-2.5 q-1.8,0 -1.8,2.5 q0,3.5 -3.2,4 z"/>
+    </g>
+  </defs>
+  <use href="#c" fill="#e07a5f" transform="translate(52,46) rotate(-9) scale(1.0)"/>
+  <use href="#c" fill="#3d9a8b" transform="translate(150,58) rotate(11) scale(0.92)"/>
+  <use href="#c" fill="#e0a458" transform="translate(206,116) rotate(-6) scale(0.88)"/>
+  <use href="#c" fill="#9b7cb0" transform="translate(94,128) rotate(7) scale(1.02)"/>
+  <use href="#c" fill="#6a9fd8" transform="translate(44,196) rotate(13) scale(0.9)"/>
+  <use href="#c" fill="#7ba05b" transform="translate(168,198) rotate(-12) scale(0.98)"/>
+</svg>

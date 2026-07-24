@@ -5,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lộ trình học — SkillBridge</title>
   <script th:inline="none">try{var t=localStorage.getItem('sb-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}</script>
+  <script th:inline="none">try{var b=localStorage.getItem('sb-bg');if(b==='cats'||b==='fish'||b==='birds')document.documentElement.setAttribute('data-bg',b);}catch(e){}</script>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <link rel="stylesheet" th:href="@{/css/app.css}"/>
 </head>
 <body>
+<div class="bg-layer" aria-hidden="true"></div>
 <div class="wrap">
 
   <div class="masthead">
@@ -220,5 +222,6 @@
     };
   })();
 </script>
+<script th:src="@{/js/backdrop.js}" defer></script>
 </body>
 </html>

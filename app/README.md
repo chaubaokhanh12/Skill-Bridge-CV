@@ -45,6 +45,14 @@ rồi đi theo các bước trên màn hình.
 
 ---
 
+## Giao diện
+
+Góc phải header có 2 công tắc, lưu theo trình duyệt (localStorage):
+
+- **Sáng / tối** — nút "Chế độ tối".
+- **Hình nền** — bộ chọn **○ Trơn · 🐱 Mèo · 🐟 Cá · 🐦 Chim**: rải các nhân vật nhỏ
+  nhiều màu làm nền trang trí (mặc định: trơn). Thuần CSS/SVG, không ảnh hưởng dữ liệu.
+
 ## Cấu hình
 
 `src/main/resources/application.properties`:
