@@ -313,5 +313,10 @@
   ],
   "sk_problem_solving": [
     { "title": "LeetCode — Explore", "url": "https://leetcode.com/explore/", "hours": 10 }
+  ],
+  "sk_feature_eng": [
+    { "title": "Kaggle — Feature Engineering Course", "url": "https://www.kaggle.com/learn/feature-engineering", "hours": 5 },
+    { "title": "scikit-learn — Preprocessing data", "url": "https://scikit-learn.org/stable/modules/preprocessing.html", "hours": 6 },
+    { "title": "Machine Learning Mastery — Discover Feature Engineering", "url": "https://machinelearningmastery.com/discover-feature-engineering-how-to-engineer-features-and-how-to-get-good-at-it/", "hours": 4 }
   ]
 }

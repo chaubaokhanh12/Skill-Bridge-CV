@@ -83,8 +83,8 @@ class MarketAnalyzer:
             return config.LABEL_MET
         if jd_count < low_cut:
             return config.LABEL_LOW
-        if overridden:  # user đã trả lời rồi -> không hỏi lại, chốt theo mức độ ưu tiên
-            return config.LABEL_HIGH if freq >= config.CORE_FREQ else config.LABEL_LOW
+        if overridden:  # đã trả lời "không/biết sơ" -> gap ĐÃ xác nhận. Skill hiếm đã bị
+            return config.LABEL_HIGH  # lọc ở trên (jd_count<low_cut), nên đây là ưu tiên học.
         if status == "missing" and freq >= config.CORE_FREQ:
             return config.LABEL_HIGH
         return config.LABEL_CONFIRM
@@ -115,9 +115,11 @@ class MarketAnalyzer:
 
     @staticmethod
     def _band(ratio: float) -> str:
+        # Dải rộng 10 điểm phần trăm để tránh "độ chính xác giả": pct thật LUÔN nằm
+        # trong dải (vd 55% -> "khoảng 50–60%"). '–' en-dash theo spec.
         pct = max(0, min(100, round(ratio * 100)))
-        lo = min(99, (pct // 1) * 1)
-        return f"khoảng {lo}–{lo + 1}%"  # '–' en-dash theo spec
+        lo = min(90, (pct // 10) * 10)
+        return f"khoảng {lo}–{lo + 10}%"
 
     def readiness(self, rows: list, profile: dict, total_jd: int) -> dict:
         status_by_id = {r["skill_id"]: r["status"] for r in rows}

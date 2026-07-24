@@ -6,6 +6,7 @@ map HTTP ↔ các phương thức này, không chứa logic.
 """
 import glob
 import json
+from concurrent.futures import ThreadPoolExecutor
 
 from . import config
 from .errors import AppError
@@ -25,6 +26,7 @@ class AnalysisService:
         self.analyzer = MarketAnalyzer(self.tax)
         self.roadmap_builder = RoadmapBuilder(self.tax)
         self.suggester = CvSuggester(self.tax)
+        self._market_cache = {}  # role_id -> (total_jd, jd_lists); JD tĩnh nên nhớ trong tiến trình
 
     # -- roles -------------------------------------------------------------
     def _jd_files(self, role: dict) -> list:
@@ -41,21 +43,37 @@ class AnalysisService:
         raise AppError("ROLE_NOT_FOUND", f"Không tìm thấy role_id: {role_id}")
 
     # -- cầu thị trường từ JD của role -------------------------------------
+    def _extract_jd_raw(self, fp: str) -> list:
+        """Đọc 1 file JD + trích skill THÔ (chưa normalize). Đây là phần I/O nặng
+        (LLM ở chế độ online) nên tách riêng để chạy SONG SONG được."""
+        with open(fp, encoding="utf-8", errors="ignore") as f:
+            return self.extractor.extract_jd_skills(f.read())
+
     def _market(self, role: dict):
+        """Cầu thị trường từ toàn bộ JD của role. Tối ưu tốc độ:
+        - Nhớ kết quả trong tiến trình (JD tĩnh) -> lần gọi sau tức thì (khỏi trích lại
+          mỗi lần /analyze hay reload trang).
+        - Lần đầu: trích các JD SONG SONG (mỗi JD 1 lời gọi LLM ở online) -> nhanh hơn
+          nhiều so với tuần tự; normalize làm sau, tuần tự (embedding chỉ nạp 1 lần)."""
+        rid = role["id"]
+        if rid in self._market_cache:
+            return self._market_cache[rid]
         files = self._jd_files(role)
         if not files:
             raise AppError("NO_JDS", f"Role '{role['id']}' chưa có JD nào trong {role['jds_dir']}")
+        with ThreadPoolExecutor(max_workers=min(8, len(files))) as ex:
+            raw_lists = list(ex.map(self._extract_jd_raw, files))
         lists = []
-        for fp in files:
-            with open(fp, encoding="utf-8", errors="ignore") as f:
-                txt = f.read()
+        for raw in raw_lists:
             norm = []
-            for it in self.extractor.extract_jd_skills(txt):
+            for it in raw:
                 sid, _ = self.tax.normalize(it.get("name", ""))
                 if sid:
                     norm.append({"skill_id": sid, "importance": it.get("importance", "preferred")})
             lists.append(norm)
-        return len(files), lists
+        result = (len(files), lists)
+        self._market_cache[rid] = result
+        return result
 
     # -- /scan-cv ----------------------------------------------------------
     def scan(self, cv_path: str) -> dict:
@@ -115,6 +133,10 @@ class AnalysisService:
     # -- /cv-suggestions + /cv-export --------------------------------------
     def suggestions(self, cv_path: str, role_id: str, level: str) -> dict:
         role = self.get_role(role_id)
+        if config.OFFLINE_LLM:  # bộ luật không viết lại CV được -> không bịa, báo cần LLM
+            return {"suggestions": [],
+                    "note": ("Gợi ý viết lại CV cần chế độ AI (LLM). Core đang chạy chế độ nhanh "
+                             "(offline) nên chưa tạo gợi ý — bật LLM để nhận gợi ý cá nhân hoá.")}
         return {"suggestions": self.suggester.suggest(read_cv(cv_path), role["name"], level)}
 
     def export_cv(self, accepted: list) -> str:

@@ -36,7 +36,7 @@ public final class Dtos {
     public record Suggestion(String original, String suggested, String reason) {
     }
 
-    public record CvSuggestionsResponse(List<Suggestion> suggestions) {
+    public record CvSuggestionsResponse(List<Suggestion> suggestions, String note) {
     }
 
     // ---- POST /analyze ----

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <g id="b">
+      <ellipse cx="-2" cy="1" rx="9" ry="6.5"/>
+      <circle cx="6" cy="-5" r="4.5"/>
+      <path d="M10,-5 L17,-4 L10,-2 Z"/>
+      <path d="M-11,1 L-18,-4 L-15,4 Z"/>
+    </g>
+  </defs>
+  <use href="#b" fill="#e07a5f" transform="translate(52,48) rotate(-7) scale(0.86)"/>
+  <use href="#b" fill="#3d9a8b" transform="translate(150,58) rotate(8) scale(0.8)"/>
+  <use href="#b" fill="#e0a458" transform="translate(204,116) rotate(-6) scale(0.78)"/>
+  <use href="#b" fill="#9b7cb0" transform="translate(94,128) rotate(6) scale(0.88)"/>
+  <use href="#b" fill="#6a9fd8" transform="translate(46,196) rotate(10) scale(0.82)"/>
+  <use href="#b" fill="#7ba05b" transform="translate(168,196) rotate(-9) scale(0.84)"/>
+</svg>

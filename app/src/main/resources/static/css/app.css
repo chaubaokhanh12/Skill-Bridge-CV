@@ -33,7 +33,29 @@ body {
   font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased;
   transition: background .25s ease, color .25s ease;
 }
-.wrap { max-width: 820px; margin: 0 auto; padding: 48px 24px 88px; }
+.wrap { max-width: 820px; margin: 0 auto; padding: 48px 24px 88px; position: relative; z-index: 1; }
+
+/* ---------- Lớp nền trang trí (đằng sau toàn bộ nội dung) ---------- */
+.bg-layer { position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-repeat: repeat; background-position: center; background-size: 240px 240px;
+  opacity: 0; transition: opacity .4s ease; }
+[data-bg="cats"]  .bg-layer { background-image: url("../img/bg-cats.svg");  opacity: .3; }
+[data-bg="fish"]  .bg-layer { background-image: url("../img/bg-fish.svg");  opacity: .3; }
+[data-bg="birds"] .bg-layer { background-image: url("../img/bg-birds.svg"); opacity: .3; }
+[data-theme="dark"][data-bg="cats"]  .bg-layer,
+[data-theme="dark"][data-bg="fish"]  .bg-layer,
+[data-theme="dark"][data-bg="birds"] .bg-layer { opacity: .2; }
+@media (prefers-reduced-motion: reduce) { .bg-layer { transition: none; } }
+
+/* Quầng nền quanh chữ nằm NGOÀI card (header, stepper, link, ghi chú) để không chìm
+   vào hoạ tiết. Chỉ bật khi có nền trang trí; chữ trong card vốn đã trên nền đục. */
+[data-bg] .masthead h1, [data-bg] .masthead .tag,
+[data-bg] .steps, [data-bg] .eyebrow, [data-bg] .back,
+[data-bg] .section-h, [data-bg] .section-note,
+[data-bg] .list-head h2, [data-bg] .list-head .count,
+[data-bg] #rdStatus, [data-bg] .foot, [data-bg] .footnote {
+  text-shadow: 0 0 5px var(--paper), 0 0 9px var(--paper), 0 0 9px var(--paper);
+}
 
 /* ---------- Header + toggle sáng/tối ---------- */
 .masthead { display: flex; align-items: center; gap: 14px; margin-bottom: 30px; }
@@ -41,12 +63,22 @@ body {
   display: grid; place-items: center; font-family: var(--display); font-weight: 600; font-size: 20px; border-radius: 8px; }
 .masthead h1 { font-family: var(--display); font-weight: 500; font-size: 24px; margin: 0; letter-spacing: -.01em; line-height: 1.15; }
 .masthead .tag { margin: 3px 0 0; color: var(--muted); font-size: 14px; }
-.themes { margin-left: auto; }
+.themes { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; }
 .theme-toggle { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted);
   background: transparent; border: 1px solid var(--hair-strong); border-radius: 6px; padding: 7px 13px; cursor: pointer;
   transition: border-color .15s, color .15s; }
 .theme-toggle:hover { border-color: var(--pine); color: var(--pine); }
 .theme-toggle:focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
+
+/* Bộ chọn hình nền (trơn / mèo / cá / chim) — dựng bởi js/backdrop.js */
+.bg-picker { display: inline-flex; align-items: center; gap: 2px; padding: 2px;
+  border: 1px solid var(--hair-strong); border-radius: 6px; }
+.bg-picker button { font-family: var(--mono); font-size: 14px; line-height: 1; background: transparent;
+  border: none; border-radius: 4px; padding: 5px 7px; cursor: pointer; color: var(--muted);
+  transition: background .15s, color .15s; }
+.bg-picker button:hover { color: var(--pine); }
+.bg-picker button[aria-pressed="true"] { background: var(--pine); color: var(--on-pine); }
+.bg-picker button:focus-visible { outline: 2px solid var(--pine); outline-offset: 2px; }
 
 /* ---------- Stepper (wizard) ---------- */
 .steps { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 4px; list-style: none;
@@ -249,5 +281,7 @@ ul.dot li::before { content: ""; position: absolute; left: 4px; top: 8px; width:
   .big { font-size: 42px; }
   .proj-grid { grid-template-columns: 1fr; gap: 14px; }
   .crow { gap: 10px; }
+  .masthead { flex-wrap: wrap; }
+  .themes { margin-left: 0; width: 100%; justify-content: flex-start; }
 }
 @media (prefers-reduced-motion: reduce) { .fill { transition: none; } .spinner { animation: none; } }

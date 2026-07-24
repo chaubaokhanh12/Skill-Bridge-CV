@@ -195,6 +195,7 @@ public class HomeController {
         Dtos.CvSuggestionsResponse res = core.cvSuggestions(
                 session.getCvBytes(), session.getFilename(), session.getRoleId(), session.getLevel());
         model.addAttribute("suggestions", res.suggestions());
+        model.addAttribute("note", res.note());
         model.addAttribute("filename", session.getFilename());
         return "cv-suggest";
     }
@@ -225,11 +226,34 @@ public class HomeController {
     @ExceptionHandler(CoreException.class)
     public String handleCoreError(CoreException ex, Model model) {
         model.addAttribute("error", ex.getMessage());
+        safeFormAttrs(model);
+        return "index";
+    }
+
+    /** Core không phản hồi / timeout / không kết nối được -> banner, không Whitelabel. */
+    @ExceptionHandler(org.springframework.web.client.ResourceAccessException.class)
+    public String handleCoreUnreachable(Exception ex, Model model) {
+        model.addAttribute("error",
+                "Không gọi được service AI (core) — core chưa chạy hoặc xử lý quá lâu. "
+                + "Hãy chắc core đang chạy ở cổng 8000 rồi thử lại.");
+        safeFormAttrs(model);
+        return "index";
+    }
+
+    /** Lưới cuối: bất kỳ lỗi nào khác cũng ra banner thay vì trang lỗi trắng. */
+    @ExceptionHandler(Exception.class)
+    public String handleUnexpected(Exception ex, Model model) {
+        model.addAttribute("error", "Đã xảy ra lỗi không mong muốn: " + ex.getMessage());
+        safeFormAttrs(model);
+        return "index";
+    }
+
+    /** Nạp lại attr cho form; nếu chính core cũng lỗi thì để danh sách role rỗng. */
+    private void safeFormAttrs(Model model) {
         try {
             addFormAttrs(model);
         } catch (Exception ignore) {
             model.addAttribute("roles", Collections.emptyList());
         }
-        return "index";
     }
 }
