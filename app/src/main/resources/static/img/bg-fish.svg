@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 240 240">
+  <defs>
+    <g id="f">
+      <ellipse cx="-1" cy="0" rx="11" ry="6.5"/>
+      <path d="M8,0 L18,-7 L18,7 Z"/>
+      <path d="M-3,-6 L1,-12 L5,-6 Z"/>
+    </g>
+  </defs>
+  <use href="#f" fill="#e07a5f" transform="translate(50,48) rotate(-8) scale(0.9)"/>
+  <use href="#f" fill="#3d9a8b" transform="translate(152,56) rotate(9) scale(0.82)"/>
+  <use href="#f" fill="#e0a458" transform="translate(204,118) rotate(-5) scale(0.8)"/>
+  <use href="#f" fill="#9b7cb0" transform="translate(92,130) rotate(6) scale(0.92)"/>
+  <use href="#f" fill="#6a9fd8" transform="translate(46,198) rotate(11) scale(0.84)"/>
+  <use href="#f" fill="#7ba05b" transform="translate(166,196) rotate(-10) scale(0.88)"/>
+</svg>

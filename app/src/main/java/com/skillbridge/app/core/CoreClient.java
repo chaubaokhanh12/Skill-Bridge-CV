@@ -5,6 +5,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -33,8 +34,14 @@ public class CoreClient {
 
     public CoreClient(RestClient.Builder builder, WebClient.Builder webClientBuilder,
                       @Value("${core.base-url}") String baseUrl) {
+        // Client JDK (khong dung Reactor Netty) + timeout rong: /scan-cv va /analyze co the
+        // chay pipeline LLM/embedding mat nhieu giay, khong duoc cat som (tranh ReadTimeout).
+        SimpleClientHttpRequestFactory rf = new SimpleClientHttpRequestFactory();
+        rf.setConnectTimeout(10_000);    // 10s de ket noi
+        rf.setReadTimeout(180_000);      // 180s cho core xu ly xong
         this.http = builder
                 .baseUrl(baseUrl)
+                .requestFactory(rf)
                 .defaultStatusHandler(status -> status.isError(), (request, response) -> {
                     String body = new String(response.getBody().readAllBytes(), StandardCharsets.UTF_8);
                     String message = extract(MSG, body);
