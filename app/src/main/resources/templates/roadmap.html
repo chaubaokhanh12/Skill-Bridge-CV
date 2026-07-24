@@ -17,7 +17,7 @@
     <div class="logo">S</div>
     <div>
       <h1>Lộ trình học của bạn</h1>
-      <p class="tag"><span th:text="${roadmap.weeks().size()}">3</span> tuần · <span th:text="${hours}">5</span> giờ mỗi tuần</p>
+      <p class="tag"><span id="rdWeeksTag">…</span> tuần · <span th:text="${hours}">5</span> giờ mỗi tuần</p>
     </div>
     <div class="themes">
       <button class="theme-toggle" type="button" id="themeToggle">Chế độ tối</button>
@@ -33,129 +33,35 @@
 
   <a class="back" href="/">← Quay lại kết quả phân tích</a>
 
-  <!-- Tong quan lo trinh -->
-  <div class="rd-shell" th:if="${roadmap.meta() != null}">
+  <div id="rdError" class="banner warn" hidden></div>
+
+  <p id="rdStatus" class="rd-meta">
+    <span class="spinner" aria-hidden="true"></span>
+    Đang tạo lộ trình… tuần đầu tiên sẽ hiện ngay khi xong, các tuần sau đổ dần.
+  </p>
+
+  <!-- Tong quan lo trinh (hien khi co event 'meta') -->
+  <div class="rd-shell" id="rdShell" hidden>
     <div class="readiness">
       <p class="rd-label">Lộ trình học cá nhân hóa</p>
       <div class="rd-band">
-        <span th:text="${roadmap.meta().totalWeeks()}">4</span> tuần ·
-        <span th:text="${roadmap.meta().totalHours()}">20</span> giờ
+        <span id="rdBandWeeks">0</span> tuần ·
+        <span id="rdBandHours">0</span> giờ
       </div>
-      <p class="rd-meta" th:text="${roadmap.meta().summary()}">Tóm tắt lộ trình.</p>
+      <p class="rd-meta" id="rdSummary"></p>
     </div>
   </div>
 
-  <!-- Cac tuan -->
-  <div class="card week" th:each="w : ${roadmap.weeks()}">
-    <div class="week-h">
-      <span class="week-num" th:text="'TUẦN ' + ${w.week()}">TUẦN 1</span>
-      <span class="week-skill" th:text="${w.skill()}">SQL</span>
-      <span class="week-meta">
-        <span class="tagchip" th:if="${w.phase()}" th:text="${w.phase()}">Nền tảng</span>
-        <span class="tagchip alt" th:if="${w.estimatedHours()}" th:text="'~' + ${w.estimatedHours()} + ' giờ'">~5 giờ</span>
-      </span>
-    </div>
+  <!-- Cac tuan (moi tuan them vao day khi co event 'week') -->
+  <div id="weeks"></div>
 
-    <p class="week-focus" th:if="${w.focus()}" th:text="${w.focus()}">Trọng tâm tuần.</p>
+  <!-- Capstone (hien khi co event 'capstone') -->
+  <div class="card capstone" id="capstone" hidden></div>
 
-    <!-- Vi sao hoc (noi voi nhu cau JD) -->
-    <div class="why" th:if="${w.why()}">
-      <span class="why-k">Vì sao</span>
-      <span th:text="${w.why()}">Xuất hiện ở 22/25 JD...</span>
-    </div>
-
-    <!-- Muc tieu hoc -->
-    <div class="block" th:if="${w.objectives() != null and !w.objectives().isEmpty()}">
-      <div class="block-h">Mục tiêu tuần này</div>
-      <ul class="ck">
-        <li th:each="o : ${w.objectives()}" th:text="${o}">Nắm cú pháp cốt lõi.</li>
-      </ul>
-    </div>
-
-    <!-- Tai lieu -->
-    <div class="block" th:if="${w.resources() != null and !w.resources().isEmpty()}">
-      <div class="block-h">Tài liệu (tự học theo tiến độ)</div>
-      <div class="res">
-        <a th:each="r : ${w.resources()}" th:href="${r.url()}" target="_blank" rel="noopener">
-          <span th:text="${r.title()}">SQLBolt</span>
-          <span class="h" th:if="${r.hours()}" th:text="${r.hours()} + ' giờ'">8 giờ</span>
-        </a>
-      </div>
-    </div>
-
-    <!-- Bai luyen tap -->
-    <div class="block" th:if="${w.practice() != null and !w.practice().isEmpty()}">
-      <div class="block-h">Luyện tập</div>
-      <ul class="dot">
-        <li th:each="p : ${w.practice()}" th:text="${p}">Gõ tay lại ví dụ.</li>
-      </ul>
-    </div>
-
-    <!-- Checkpoint -->
-    <div class="checkpoint" th:if="${w.checkpoint()}">
-      <span class="ck-icon">✓</span>
-      <span th:text="${w.checkpoint()}">Tự kiểm: ...</span>
-    </div>
-
-    <!-- Mini-project (tuan cuoi cua moi skill) -->
-    <div class="proj" th:if="${w.miniProject() != null}">
-      <div class="proj-top">
-        <span class="proj-tag">Mini-project</span>
-        <span class="proj-diff" th:if="${w.miniProject().difficulty()}" th:text="${w.miniProject().difficulty()}">Cơ bản</span>
-      </div>
-      <div class="pt" th:text="${w.miniProject().title()}">Phân tích doanh thu bằng SQL</div>
-      <div class="pg" th:text="${w.miniProject().goal()}">Chứng minh khả năng viết truy vấn tổng hợp</div>
-
-      <div class="proj-grid">
-        <div th:if="${w.miniProject().doneCriteria() != null and !w.miniProject().doneCriteria().isEmpty()}">
-          <div class="mini-h">Tiêu chí hoàn thành</div>
-          <ul class="ck">
-            <li th:each="c : ${w.miniProject().doneCriteria()}" th:text="${c}">Viết 5 truy vấn JOIN</li>
-          </ul>
-        </div>
-        <div th:if="${w.miniProject().deliverables() != null and !w.miniProject().deliverables().isEmpty()}">
-          <div class="mini-h">Sản phẩm nộp</div>
-          <ul class="dot">
-            <li th:each="d : ${w.miniProject().deliverables()}" th:text="${d}">Notebook có chú thích</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="mini-line" th:if="${w.miniProject().dataset()}">
-        <b>Dữ liệu gợi ý:</b> <span th:text="${w.miniProject().dataset()}">Kaggle...</span>
-      </div>
-      <div class="mini-line" th:if="${w.miniProject().stretch()}">
-        <b>Thử thách thêm:</b> <span th:text="${w.miniProject().stretch()}">Tự động hóa...</span>
-      </div>
-      <div class="cv" th:if="${w.miniProject().cvBullet()}">
-        <b>Dòng cho CV:</b> <span th:text="${w.miniProject().cvBullet()}">Phân tích dữ liệu bán hàng...</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Capstone -->
-  <div class="card capstone" th:if="${roadmap.capstone() != null}">
-    <div class="cap-tag">Dự án tổng hợp cuối lộ trình</div>
-    <div class="cap-title" th:text="${roadmap.capstone().title()}">Mini-portfolio phân tích dữ liệu</div>
-    <p class="cap-goal" th:text="${roadmap.capstone().goal()}">Kết hợp mọi kỹ năng...</p>
-    <div class="cap-skills" th:if="${roadmap.capstone().skillsUsed() != null}">
-      <span class="tagchip" th:each="s : ${roadmap.capstone().skillsUsed()}" th:text="${s}">SQL</span>
-    </div>
-    <div class="mini-h" style="margin-top:16px">Tiêu chí hoàn thành</div>
-    <ul class="ck" th:if="${roadmap.capstone().doneCriteria() != null}">
-      <li th:each="c : ${roadmap.capstone().doneCriteria()}" th:text="${c}">Thu thập & làm sạch dữ liệu</li>
-    </ul>
-    <div class="cv" th:if="${roadmap.capstone().cvBullet()}">
-      <b>Dòng cho CV:</b> <span th:text="${roadmap.capstone().cvBullet()}">Dự án phân tích đầu-cuối...</span>
-    </div>
-  </div>
-
-  <!-- Meo portfolio -->
-  <div class="card" th:if="${roadmap.portfolioTips() != null and !roadmap.portfolioTips().isEmpty()}">
+  <!-- Meo portfolio (hien khi co event 'tips') -->
+  <div class="card" id="tips" hidden>
     <h2>Mẹo biến lộ trình thành portfolio</h2>
-    <ul class="dot" style="margin-top:6px">
-      <li th:each="t : ${roadmap.portfolioTips()}" th:text="${t}">Đẩy dự án lên GitHub...</li>
-    </ul>
+    <ul class="dot" style="margin-top:6px"></ul>
   </div>
 
   <div class="toolbar">
@@ -184,6 +90,134 @@
       try { localStorage.setItem(KEY, next); } catch (e) {}
       apply(next);
     });
+  })();
+</script>
+
+<!-- Streaming: lay lo trinh qua SSE (/roadmap/stream), hien tung tuan ngay khi xong
+     thay vi doi core xu ly het roi moi render (xem HomeController.roadmapStream). -->
+<script th:inline="javascript">
+  (function () {
+    var skillIds = /*[[${skillIds}]]*/ [];
+    var hours = /*[[${hours}]]*/ 5;
+
+    function esc(s) {
+      return (s === null || s === undefined ? '' : String(s))
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function renderMeta(m) {
+      document.getElementById('rdWeeksTag').textContent = m.total_weeks;
+      document.getElementById('rdBandWeeks').textContent = m.total_weeks;
+      document.getElementById('rdBandHours').textContent = m.total_hours;
+      document.getElementById('rdSummary').textContent = m.summary || '';
+      document.getElementById('rdShell').hidden = false;
+    }
+
+    function miniProjectHtml(p) {
+      var diff = p.difficulty ? '<span class="proj-diff">' + esc(p.difficulty) + '</span>' : '';
+      var doneCriteria = (p.done_criteria && p.done_criteria.length)
+        ? '<div><div class="mini-h">Tiêu chí hoàn thành</div><ul class="ck">'
+          + p.done_criteria.map(function (c) { return '<li>' + esc(c) + '</li>'; }).join('') + '</ul></div>' : '';
+      var deliverables = (p.deliverables && p.deliverables.length)
+        ? '<div><div class="mini-h">Sản phẩm nộp</div><ul class="dot">'
+          + p.deliverables.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul></div>' : '';
+      var dataset = p.dataset ? '<div class="mini-line"><b>Dữ liệu gợi ý:</b> <span>' + esc(p.dataset) + '</span></div>' : '';
+      var stretch = p.stretch ? '<div class="mini-line"><b>Thử thách thêm:</b> <span>' + esc(p.stretch) + '</span></div>' : '';
+      var cvBullet = p.cv_bullet ? '<div class="cv"><b>Dòng cho CV:</b> <span>' + esc(p.cv_bullet) + '</span></div>' : '';
+      return '<div class="proj"><div class="proj-top"><span class="proj-tag">Mini-project</span>' + diff + '</div>'
+        + '<div class="pt">' + esc(p.title) + '</div><div class="pg">' + esc(p.goal) + '</div>'
+        + '<div class="proj-grid">' + doneCriteria + deliverables + '</div>'
+        + dataset + stretch + cvBullet + '</div>';
+    }
+
+    function weekCardHtml(w) {
+      var phase = w.phase ? '<span class="tagchip">' + esc(w.phase) + '</span>' : '';
+      var hoursChip = w.estimated_hours ? '<span class="tagchip alt">~' + esc(w.estimated_hours) + ' giờ</span>' : '';
+      var focus = w.focus ? '<p class="week-focus">' + esc(w.focus) + '</p>' : '';
+      var why = w.why ? '<div class="why"><span class="why-k">Vì sao</span><span>' + esc(w.why) + '</span></div>' : '';
+      var objectives = (w.objectives && w.objectives.length)
+        ? '<div class="block"><div class="block-h">Mục tiêu tuần này</div><ul class="ck">'
+          + w.objectives.map(function (o) { return '<li>' + esc(o) + '</li>'; }).join('') + '</ul></div>' : '';
+      var resources = (w.resources && w.resources.length)
+        ? '<div class="block"><div class="block-h">Tài liệu (tự học theo tiến độ)</div><div class="res">'
+          + w.resources.map(function (r) {
+              return '<a href="' + esc(r.url) + '" target="_blank" rel="noopener"><span>' + esc(r.title) + '</span>'
+                + (r.hours ? '<span class="h">' + esc(r.hours) + ' giờ</span>' : '') + '</a>';
+            }).join('') + '</div></div>' : '';
+      var practice = (w.practice && w.practice.length)
+        ? '<div class="block"><div class="block-h">Luyện tập</div><ul class="dot">'
+          + w.practice.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul></div>' : '';
+      var checkpoint = w.checkpoint
+        ? '<div class="checkpoint"><span class="ck-icon">✓</span><span>' + esc(w.checkpoint) + '</span></div>' : '';
+      var project = w.mini_project ? miniProjectHtml(w.mini_project) : '';
+      return '<div class="card week">'
+        + '<div class="week-h"><span class="week-num">TUẦN ' + esc(w.week) + '</span>'
+        + '<span class="week-skill">' + esc(w.skill) + '</span>'
+        + '<span class="week-meta">' + phase + hoursChip + '</span></div>'
+        + focus + why + objectives + resources + practice + checkpoint + project
+        + '</div>';
+    }
+
+    function renderCapstone(c) {
+      var skills = (c.skills_used && c.skills_used.length)
+        ? '<div class="cap-skills">' + c.skills_used.map(function (s) { return '<span class="tagchip">' + esc(s) + '</span>'; }).join('') + '</div>' : '';
+      var doneCriteria = (c.done_criteria && c.done_criteria.length)
+        ? '<ul class="ck">' + c.done_criteria.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '';
+      var cvBullet = c.cv_bullet ? '<div class="cv"><b>Dòng cho CV:</b> <span>' + esc(c.cv_bullet) + '</span></div>' : '';
+      var el = document.getElementById('capstone');
+      el.innerHTML = '<div class="cap-tag">Dự án tổng hợp cuối lộ trình</div>'
+        + '<div class="cap-title">' + esc(c.title) + '</div><p class="cap-goal">' + esc(c.goal) + '</p>'
+        + skills + '<div class="mini-h" style="margin-top:16px">Tiêu chí hoàn thành</div>' + doneCriteria + cvBullet;
+      el.hidden = false;
+    }
+
+    function renderTips(tips) {
+      if (!tips || !tips.length) { return; }
+      var el = document.getElementById('tips');
+      el.querySelector('ul').innerHTML = tips.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
+      el.hidden = false;
+    }
+
+    function showError(msg) {
+      var el = document.getElementById('rdError');
+      el.textContent = msg;
+      el.hidden = false;
+    }
+
+    if (!skillIds.length) { return; }
+
+    var params = new URLSearchParams();
+    skillIds.forEach(function (id) { params.append('skill_ids', id); });
+    params.append('hours', hours);
+
+    var status = document.getElementById('rdStatus');
+    var weeksEl = document.getElementById('weeks');
+    var es = new EventSource('/roadmap/stream?' + params.toString());
+
+    es.onmessage = function (ev) {
+      var msg;
+      try { msg = JSON.parse(ev.data); } catch (e) { return; }
+      switch (msg.type) {
+        case 'meta': renderMeta(msg.data); break;
+        case 'week': weeksEl.insertAdjacentHTML('beforeend', weekCardHtml(msg.data)); break;
+        case 'capstone': renderCapstone(msg.data); break;
+        case 'tips': renderTips(msg.data); break;
+        case 'error':
+          status.hidden = true;
+          showError((msg.data && msg.data.message) || 'Có lỗi khi tạo lộ trình.');
+          es.close();
+          break;
+        case 'done':
+          status.hidden = true;
+          es.close();
+          break;
+      }
+    };
+    es.onerror = function () {
+      status.hidden = true;
+      showError('Mất kết nối tới máy chủ khi đang tạo lộ trình. Thử tải lại trang.');
+      es.close();
+    };
   })();
 </script>
 </body>

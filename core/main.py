@@ -13,7 +13,7 @@ import tempfile
 
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, RedirectResponse, Response
+from fastapi.responses import JSONResponse, RedirectResponse, Response, StreamingResponse
 from fastapi.exceptions import RequestValidationError
 from pydantic import BaseModel
 
@@ -221,6 +221,44 @@ def roadmap(req: RoadmapReq):
         raise
     except Exception as e:  # noqa: BLE001
         raise AppError("ROADMAP_FAILED", str(e))
+
+
+def _sse_event(item: dict) -> str:
+    return f"data: {json.dumps(item, ensure_ascii=False)}\n\n"
+
+
+def _mock_roadmap_stream():
+    data = _fixture("roadmap.json")
+    yield _sse_event({"type": "meta", "data": data.get("meta")})
+    for w in data.get("weeks", []):
+        yield _sse_event({"type": "week", "data": w})
+    yield _sse_event({"type": "capstone", "data": data.get("capstone")})
+    yield _sse_event({"type": "tips", "data": data.get("portfolio_tips")})
+    yield _sse_event({"type": "done", "data": None})
+
+
+def _roadmap_stream_gen(req: RoadmapReq):
+    if config.MOCK:
+        yield from _mock_roadmap_stream()
+        return
+    try:
+        if req.hours_per_week <= 0:
+            raise AppError("BAD_HOURS", "hours_per_week phải lớn hơn 0")
+        for item in service.roadmap_stream(req.role_id, config.norm_level(req.level),
+                                           req.hours_per_week, req.skill_ids):
+            yield _sse_event(item)
+    except AppError as e:
+        yield _sse_event({"type": "error", "data": {"code": e.code, "message": e.message}})
+    except Exception as e:  # noqa: BLE001
+        yield _sse_event({"type": "error", "data": {"code": "ROADMAP_FAILED", "message": str(e)}})
+
+
+@app.post("/roadmap/stream")
+def roadmap_stream(req: RoadmapReq):
+    """Như /roadmap nhưng SSE: gửi từng tuần ngay khi tính xong thay vì đợi hết.
+    Response đã 200 ngay khi bắt đầu stream -> lỗi giữa chừng gửi qua event
+    {"type": "error"} trong body, KHÔNG đổi được HTTP status nữa."""
+    return StreamingResponse(_roadmap_stream_gen(req), media_type="text/event-stream")
 
 
 @app.get("/health")

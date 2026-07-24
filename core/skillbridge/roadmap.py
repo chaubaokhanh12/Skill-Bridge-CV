@@ -41,22 +41,22 @@ PORTFOLIO_TIPS = [
     "Biến done_criteria và cv_bullet thành gạch đầu dòng trong CV; ưu tiên các skill 'Ưu tiên cao'.",
 ]
 
-ROADMAP_PROMPT = """Bạn là mentor xây lộ trình học.
+ROADMAP_SKILL_PROMPT = """Bạn là mentor xây lộ trình học.
 Đối tượng: {level_brief}
-Với DANH SÁCH skill (theo thứ tự học) dưới đây, sinh cho MỖI skill một mini-project
-thực tế, cụ thể, đo lường được, đúng phong cách portfolio VÀ đúng tầm trình độ trên.
+Với skill dưới đây, sinh MỘT mini-project thực tế, cụ thể, đo lường được, đúng phong cách
+portfolio VÀ đúng tầm trình độ trên.
 
 RÀNG BUỘC:
-- CHỈ dùng resource được cung cấp cho từng skill; TUYỆT ĐỐI không bịa link mới.
+- CHỈ dùng resource được cung cấp; TUYỆT ĐỐI không bịa link mới.
 - done_criteria đo được; deliverables là sản phẩm nộp được; cv_bullet viết dạng thành tích.
 
-DANH SÁCH (JSON):
-{skills}
+SKILL (JSON):
+{skill}
 
 CHỈ trả JSON hợp lệ, KHÔNG markdown, KHÔNG giải thích:
-{{"projects":[{{"skill_id":"...","title":"...","goal":"...","difficulty":"...",
+{{"skill_id":"...","title":"...","goal":"...","difficulty":"...",
 "dataset":"...","done_criteria":["...","..."],"deliverables":["...","..."],
-"stretch":"...","cv_bullet":"..."}}]}}"""
+"stretch":"...","cv_bullet":"..."}}"""
 
 
 class RoadmapBuilder:
@@ -153,18 +153,17 @@ class RoadmapBuilder:
             "cv_bullet": f"Ứng dụng {s} để giải một bài toán thực tế và tạo sản phẩm đưa vào portfolio.",
         }
 
-    # -- mini-project qua LLM (làm giàu phần sáng tạo) ----------------------
-    def _llm_projects(self, order, level) -> dict:
-        ctx = [{
+    # -- mini-project qua LLM (làm giàu phần sáng tạo, 1 call/skill để streaming được) --
+    def _llm_project_for_skill(self, sid: str, level: str) -> dict:
+        ctx = {
             "skill_id": sid, "name": self.tax.canonical_name(sid),
             "resources": [{"title": r["title"], "url": r["url"]} for r in self.resources.get(sid, [])],
-        } for sid in order]
+        }
         try:
             brief = config.LEVEL_BRIEF.get(level, config.LEVEL_BRIEF["junior"])
-            data = llm.complete_json(ROADMAP_PROMPT.format(
-                level_brief=brief, skills=json.dumps(ctx, ensure_ascii=False)), 2600)
-            return {p["skill_id"]: p for p in data.get("projects", []) if p.get("skill_id")}
-        except Exception:  # noqa: BLE001 - lỗi LLM -> template
+            return llm.complete_json(ROADMAP_SKILL_PROMPT.format(
+                level_brief=brief, skill=json.dumps(ctx, ensure_ascii=False)), 900)
+        except Exception:  # noqa: BLE001 - lỗi/rỗng -> template fallback ở _merge_project
             return {}
 
     def _merge_project(self, sid, level, llm_proj) -> dict:
@@ -206,25 +205,39 @@ class RoadmapBuilder:
             "cv_bullet": "Thực hiện dự án đầu-cuối tổng hợp nhiều kỹ năng, công bố công khai kèm tài liệu.",
         }
 
-    # -- API chính ---------------------------------------------------------
-    def build(self, skill_ids, hours_per_week=5, demand=None, role_name=None, total_jd=None, level="junior") -> dict:
+    # -- API chính (streaming) ----------------------------------------------
+    def build_stream(self, skill_ids, hours_per_week=5, demand=None, role_name=None,
+                     total_jd=None, level="junior"):
+        """Sinh lộ trình dạng generator: yield {"type": ..., "data": ...} theo thứ tự
+        meta -> week (nhiều lần) -> capstone -> tips -> done.
+        meta/capstone/tips tất định (không cần LLM) nên gửi được ngay. mini_project của
+        tuần cuối mỗi skill gọi 1 LLM call riêng (thay vì 1 batch call cho tất cả skill)
+        để mỗi tuần trả về ngay khi xong, không phải đợi hết N skill."""
         hpw = max(1, int(hours_per_week))
         order = self.topological_sort(skill_ids)
         order_set = set(order)
-        projects = {} if self.offline else self._llm_projects(order, level)
 
-        weeks, wk, total_hours = [], 0, 0
-        for sid in order:
+        plan = [(sid, *self._plan_weeks(sid)) for sid in order]  # tất định, tính 1 lần
+        total_weeks = sum(n for _, n, _ in plan)
+        total_hours = total_weeks * hpw
+        yield {"type": "meta", "data": {
+            "total_weeks": total_weeks, "hours_per_week": hpw, "total_hours": total_hours,
+            "skill_count": len(order),
+            "summary": (f"Lộ trình {total_weeks} tuần (~{total_hours} giờ, {hpw} giờ/tuần) "
+                        f"qua {len(order)} kỹ năng còn thiếu"
+                        + (f" cho vị trí {role_name}" if role_name else "")
+                        + ", kết thúc bằng một dự án tổng hợp để đưa vào CV/portfolio."),
+        }}
+
+        wk = 0
+        for sid, n_weeks, res_by_week in plan:
             lvl = self.tax.level(sid)
             phase = config.LEVEL_PHASE.get(lvl, "Kỹ năng chính")
-            n_weeks, res_by_week = self._plan_weeks(sid)
-            project = self._merge_project(sid, level, projects.get(sid))
             objectives, practice = self._objectives(sid, level), self._practice(sid)
 
             for i in range(n_weeks):
                 wk += 1
                 is_last = (i == n_weeks - 1)
-                total_hours += hpw
                 if n_weeks > 1:
                     focus = ("Nắm nền tảng và cú pháp cốt lõi." if i == 0
                              else "Thực hành sâu trên bài toán thật và hoàn thành mini-project." if is_last
@@ -233,7 +246,11 @@ class RoadmapBuilder:
                 else:
                     focus = "Học lý thuyết cốt lõi rồi thực hành ngay bằng mini-project."
                     skill_label = self.tax.canonical_name(sid)
-                weeks.append({
+                mini_project = None
+                if is_last:
+                    llm_proj = {} if self.offline else self._llm_project_for_skill(sid, level)
+                    mini_project = self._merge_project(sid, level, llm_proj)
+                yield {"type": "week", "data": {
                     "week": wk, "skill": skill_label, "skill_id": sid, "phase": phase,
                     "level": config.LEVEL_DIFF.get(lvl, "Trung cấp"), "focus": focus,
                     "why": self._why(sid, level, order_set, demand, total_jd),
@@ -242,16 +259,23 @@ class RoadmapBuilder:
                     "resources": res_by_week[i] if i < len(res_by_week) else [],
                     "practice": practice[:2] if i == 0 else practice[1:],
                     "checkpoint": self._checkpoint(sid),
-                    "mini_project": project if is_last else None,
-                })
+                    "mini_project": mini_project,
+                }}
 
-        meta = {
-            "total_weeks": len(weeks), "hours_per_week": hpw, "total_hours": total_hours,
-            "skill_count": len(order),
-            "summary": (f"Lộ trình {len(weeks)} tuần (~{total_hours} giờ, {hpw} giờ/tuần) "
-                        f"qua {len(order)} kỹ năng còn thiếu"
-                        + (f" cho vị trí {role_name}" if role_name else "")
-                        + ", kết thúc bằng một dự án tổng hợp để đưa vào CV/portfolio."),
-        }
-        return {"meta": meta, "weeks": weeks, "capstone": self._capstone(order),
-                "portfolio_tips": list(PORTFOLIO_TIPS)}
+        yield {"type": "capstone", "data": self._capstone(order)}
+        yield {"type": "tips", "data": list(PORTFOLIO_TIPS)}
+        yield {"type": "done", "data": None}
+
+    # -- API chính (không streaming, gom từ build_stream) --------------------
+    def build(self, skill_ids, hours_per_week=5, demand=None, role_name=None, total_jd=None, level="junior") -> dict:
+        meta, weeks, capstone, tips = None, [], None, []
+        for item in self.build_stream(skill_ids, hours_per_week, demand, role_name, total_jd, level):
+            if item["type"] == "meta":
+                meta = item["data"]
+            elif item["type"] == "week":
+                weeks.append(item["data"])
+            elif item["type"] == "capstone":
+                capstone = item["data"]
+            elif item["type"] == "tips":
+                tips = item["data"]
+        return {"meta": meta, "weeks": weeks, "capstone": capstone, "portfolio_tips": tips}

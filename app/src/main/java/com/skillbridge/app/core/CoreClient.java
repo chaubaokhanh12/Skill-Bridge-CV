@@ -1,11 +1,15 @@
 package com.skillbridge.app.core;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.client.MultipartBodyBuilder;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -25,8 +29,10 @@ public class CoreClient {
     private static final Pattern CODE = Pattern.compile("\"code\"\\s*:\\s*\"(.*?)\"");
 
     private final RestClient http;
+    private final WebClient webClient;
 
-    public CoreClient(RestClient.Builder builder, @Value("${core.base-url}") String baseUrl) {
+    public CoreClient(RestClient.Builder builder, WebClient.Builder webClientBuilder,
+                      @Value("${core.base-url}") String baseUrl) {
         this.http = builder
                 .baseUrl(baseUrl)
                 .defaultStatusHandler(status -> status.isError(), (request, response) -> {
@@ -39,6 +45,7 @@ public class CoreClient {
                     throw new CoreException(code != null ? code : "CORE_ERROR", message);
                 })
                 .build();
+        this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
     private static String extract(Pattern p, String body) {
@@ -124,5 +131,25 @@ public class CoreClient {
                 .body(req)
                 .retrieve()
                 .body(Dtos.RoadmapResponse.class);
+    }
+
+    /**
+     * POST /roadmap/stream (SSE) — moi phan tu la 1 dong JSON tho ({"type":..,"data":..}),
+     * cung shape voi cac event cua core (xem main.py _sse_event). Khong deserialize o day,
+     * de HomeController forward nguyen van cho browser tu parse.
+     */
+    public Flux<String> roadmapStream(String roleId, String level, int hoursPerWeek, List<String> skillIds) {
+        Map<String, Object> req = Map.of(
+                "role_id", roleId,
+                "level", level == null ? "junior" : level,
+                "hours_per_week", hoursPerWeek,
+                "skill_ids", skillIds);
+        return webClient.post().uri("/roadmap/stream")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.TEXT_EVENT_STREAM)
+                .bodyValue(req)
+                .retrieve()
+                .bodyToFlux(new ParameterizedTypeReference<ServerSentEvent<String>>() { })
+                .mapNotNull(ServerSentEvent::data);
     }
 }
