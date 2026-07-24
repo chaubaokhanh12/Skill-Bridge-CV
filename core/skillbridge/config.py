@@ -5,11 +5,16 @@ Không import module nặng ở đây (chỉ os) — an toàn để import ở b
 """
 import os
 
+from dotenv import load_dotenv
+
 # --------------------------------------------------------------------------- #
 # Đường dẫn (BASE_DIR = thư mục core/, cha của gói skillbridge/)
 # --------------------------------------------------------------------------- #
 _PKG_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(_PKG_DIR)
+
+# Nạp core/.env vào os.environ nếu có (không ghi đè biến đã export sẵn trong shell).
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 def path(*parts: str) -> str:

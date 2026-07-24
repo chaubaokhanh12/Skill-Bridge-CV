@@ -237,6 +237,8 @@ ul.dot li::before { content: ""; position: absolute; left: 4px; top: 8px; width:
 .foot, .footnote { color: var(--muted); font-size: 12.5px; line-height: 1.7; margin: 20px 2px 0; max-width: 660px; }
 .banner { margin-top: 16px; padding: 13px 16px; border-radius: 6px; font-size: 14px; background: var(--danger-bg); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 25%, transparent); }
 .banner.warn { background: var(--warn-bg); color: var(--warn); border-color: color-mix(in srgb, var(--warn) 25%, transparent); }
+.spinner { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 2px solid var(--hair); border-top-color: var(--pine); border-radius: 50%; animation: spin .7s linear infinite; vertical-align: -1px; }
+@keyframes spin { to { transform: rotate(360deg); } }
 .toolbar { display: flex; gap: 10px; align-items: center; margin-top: 18px; }
 .toolbar .grow { flex: 1; }
 .back { display: inline-block; margin: 4px 2px 0; font-family: var(--mono); font-size: 12.5px; color: var(--muted); text-decoration: none; }
@@ -248,4 +250,4 @@ ul.dot li::before { content: ""; position: absolute; left: 4px; top: 8px; width:
   .proj-grid { grid-template-columns: 1fr; gap: 14px; }
   .crow { gap: 10px; }
 }
-@media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .fill { transition: none; } .spinner { animation: none; } }

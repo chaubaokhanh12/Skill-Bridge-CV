@@ -6,6 +6,7 @@ import com.skillbridge.app.core.Dtos;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.core.publisher.Flux;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -153,6 +155,11 @@ public class HomeController {
     }
 
     // ---------------- Lộ trình học ----------------
+    /**
+     * Chỉ lưu lựa chọn + render khung trang. Dữ liệu lộ trình (meta/week/capstone/tips)
+     * do JS phía roadmap.html tự lấy qua EventSource('/roadmap/stream?...') để hiện dần
+     * từng tuần thay vì đợi core xử lý xong hết mới thấy gì (xem roadmapStream()).
+     */
     @PostMapping("/roadmap")
     public String roadmap(@RequestParam(name = "skill_ids", required = false) List<String> skillIds,
                           @RequestParam(name = "hours", defaultValue = "5") int hours,
@@ -162,10 +169,21 @@ public class HomeController {
             model.addAttribute("roadmapError", "Hãy chọn ít nhất một kỹ năng để tạo lộ trình.");
             return home(model);
         }
-        Dtos.RoadmapResponse roadmap = core.roadmap(session.getRoleId(), session.getLevel(), hours, skillIds);
-        model.addAttribute("roadmap", roadmap);
+        model.addAttribute("skillIds", skillIds);
         model.addAttribute("hours", hours);
         return "roadmap";
+    }
+
+    /** SSE proxy sang core /roadmap/stream — browser EventSource chỉ GET nên Java đứng giữa POST hộ. */
+    @GetMapping(value = "/roadmap/stream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<ServerSentEvent<String>> roadmapStream(
+            @RequestParam(name = "skill_ids") List<String> skillIds,
+            @RequestParam(name = "hours", defaultValue = "5") int hours) {
+        return core.roadmapStream(session.getRoleId(), session.getLevel(), hours, skillIds)
+                .map(data -> ServerSentEvent.builder(data).build())
+                .onErrorResume(ex -> Flux.just(ServerSentEvent.builder(
+                        "{\"type\":\"error\",\"data\":{\"code\":\"STREAM_FAILED\",\"message\":\""
+                                + esc(ex.getMessage()) + "\"}}").build()));
     }
 
     // ---------------- Bước cuối: gợi ý viết lại CV ----------------

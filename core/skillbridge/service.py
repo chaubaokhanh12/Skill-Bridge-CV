@@ -98,6 +98,20 @@ class AnalysisService:
         return self.roadmap_builder.build(skill_ids, hours_per_week, demand=demand,
                                           role_name=role["name"], total_jd=n_jd, level=level)
 
+    def roadmap_stream(self, role_id: str, level: str, hours_per_week: int, skill_ids: list):
+        """Như roadmap() nhưng generator — mỗi tuần yield ngay khi tính xong (xem
+        RoadmapBuilder.build_stream)."""
+        role = self.get_role(role_id)
+        demand, n_jd = None, None
+        try:
+            n_jd, jd_lists = self._market(role)
+            demand = self.analyzer.market_profile(jd_lists, n_jd)
+        except Exception:  # noqa: BLE001 - thiếu demand thì roadmap vẫn chạy
+            demand, n_jd = None, None
+        yield from self.roadmap_builder.build_stream(
+            skill_ids, hours_per_week, demand=demand, role_name=role["name"],
+            total_jd=n_jd, level=level)
+
     # -- /cv-suggestions + /cv-export --------------------------------------
     def suggestions(self, cv_path: str, role_id: str, level: str) -> dict:
         role = self.get_role(role_id)
